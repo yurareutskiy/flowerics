@@ -29,6 +29,6 @@ block content
                 a(href='flowers/#{flower._id}/edit')
                   button.btn.btn-warning(type='submit') Изменить
               td
-                form(action='/flowers/#{flower._id}', method='post', enctype='application/x-www-form-urlencoded')
+                form(action='/admin/flowers/#{flower._id}', method='post', enctype='application/x-www-form-urlencoded')
                   input(type='hidden',value='DELETE',name='_method')
                   button.btn.btn-danger(type='submit') Удалить
