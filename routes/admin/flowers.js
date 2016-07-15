@@ -43,7 +43,7 @@ router.route('/:id')
       if (err) {
         res.send(err);
       }
-      res.json(flower);
+      res.redirect('/admin/flowers');
     });
   });
 
@@ -65,7 +65,7 @@ router.route('/:id/edit')
       if (err) {
         res.send(err);
       }
-      res.redirect('flowers/' + flower._id);
+      res.redirect('/admin/flowers/' + flower._id);
     });
   });
 
