@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  .container
+    h1 Цветы: #{flower.name}
+
+    .form-group
+      strong Название: 
+      = flower.name
+
+    .form-group
+      strong Цена: 
+      = flower.price
+
+    .form-group
+      strong Изображение:
+      p= flower.image
+
+    .form-group
+      strong Описание: 
+      = flower.description
