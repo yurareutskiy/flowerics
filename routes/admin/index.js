@@ -2,6 +2,7 @@ var router = require('express').Router(),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override');
 
+router.use(bodyParser.urlencoded({ extended: true, keepExtensions: true }));
 router.use(methodOverride(function(req, res){
   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
     // look in urlencoded POST bodies and delete it
