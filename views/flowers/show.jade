@@ -5,6 +5,10 @@ block content
     h1 Цветы: #{flower.name}
 
     .form-group
+      a(href='#{flower._id}/edit')
+        button.btn.btn-default Изменить
+
+    .form-group
       strong Название: 
       = flower.name
 
@@ -13,9 +17,10 @@ block content
       = flower.price
 
     .form-group
-      strong Изображение:
-      p= flower.image
-
-    .form-group
       strong Описание: 
       = flower.description
+
+    .form-group
+      strong Изображение:
+      p
+        img(src= '/uploads/#{flower.image}')

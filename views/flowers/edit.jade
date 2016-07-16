@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   .container
-    form(action='/admin/flowers/#{flower._id}/edit', method='post',name='updateflower',enctype='application/x-www-form-urlencoded')
+    form(action='/admin/flowers/#{flower._id}/edit', method='post',name='updateflower', enctype='multipart/form-data')
 
       .form-group
         label Название
@@ -18,7 +18,7 @@ block content
 
       .form-group
         label Изображение
-        input.form-control(type='text', value='#{flower.image}', name='image')
+        input(type='file', name='image')
 
       input(type='hidden',value='PUT',name='_method')
 

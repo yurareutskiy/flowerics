@@ -24,10 +24,11 @@ block content
                   = flower.name
               td= flower.description
               td= flower.price
-              td= flower.image
+              td
+                img(src= '/uploads/#{flower.image}')
               td
                 a(href='flowers/#{flower._id}/edit')
-                  button.btn.btn-warning(type='submit') Изменить
+                  button.btn.btn-warning Изменить
               td
                 form(action='/admin/flowers/#{flower._id}', method='post', enctype='application/x-www-form-urlencoded')
                   input(type='hidden',value='DELETE',name='_method')
