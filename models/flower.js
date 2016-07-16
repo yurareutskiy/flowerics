@@ -1,17 +1,11 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-function priceValidator(val) {
-  return val > 0;
-}
-
-var priceValidtor = [priceValidator, 'Цена должна быть положительной']
-
 var flowerSchema = Schema({
   name: {
     type: String,
-    required: true,
-    trim: true
+    trim: true,
+    required: true
   },
   description: {
     type: String,
@@ -25,7 +19,7 @@ var flowerSchema = Schema({
   price: {
     type: Number,
     required: true,
-    validate: priceValidator
+    min: 0
   },
   created_at: {
     type: Date,
