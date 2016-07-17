@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 var flash    = require('connect-flash');
+var mongoose = require('mongoose');
+var MongoStore = require('connect-mongo')(session);
 
 var db = require('./config/db');
 var routes = require('./routes/api/index');
@@ -31,7 +33,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'SECRET',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  maxAge: new Date(Date.now() + 3600000),
+  store: new MongoStore(
+    { mongooseConnection: mongoose.connection }
+  )
 }));
 app.use(passport.initialize());
 app.use(passport.session());
