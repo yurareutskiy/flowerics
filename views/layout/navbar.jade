@@ -1,0 +1,17 @@
+.navbar.navbar-default.navbar-inverse.navbar-static-top
+  .container-fluid
+    .navbar-header
+      .navbar-brand
+        a(href='#') Flowerics
+      ul.nav.navbar-nav
+        li.dropdown
+          a(href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false') Управление
+            span.caret
+          ul.dropdown-menu
+            li
+              a(href='/admin/flowers') Цветы
+            li
+              a(href='users') Пользователи
+    ul.nav.navbar-nav.navbar-right
+      li
+        a(href='/admin/logout') Выйти

@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  .container
+    .center
+      if message.length > 0
+        .alert.alert-danger
+          = message
+      .well
+        h1.text-center Вход в панель администратора
+        form(method='post', action='/admin/login')
+
+          .form-group
+            label Логин
+            input.form-control(type='text', placeholder='Логин', name='login')
+
+          .form-group
+            label Пароль
+            input.form-control(type='password', placeholder='Пароль', name='password')
+
+          .actions.text-center
+            button.btn.btn-primary(type='submit') Вход
