@@ -1,26 +1,37 @@
 extends ../layout
 
 block content
-  .container
-    form(action='/admin/flowers/#{flower._id}/edit', method='post',name='updateflower', enctype='multipart/form-data')
+  section.content
+    .box-body
+      form(action='/admin/flowers/#{flower._id}/edit', method='post', name='updateflower', enctype='multipart/form-data')
 
-      .form-group
-        label Название
-        input.form-control(type='text', value='#{flower.name}', name='name')
+        .form-group
+          label Название
+          input.form-control(type='text', value='#{flower.name}', name='name')
 
-      .form-group
-        label Цена
-        input.form-control(type='number', value='#{flower.price}', name='price')
+        .form-group
+          label Цена
+          .input-group
+            input.form-control(type='number', value='#{flower.price}', name='price', min='0')
+            span.input-group-addon .00
 
-      .form-group
-        label Описание
-        input.form-control(type='text', value='#{flower.description}', name='description')
+        .form-group
+          label Описание
+          textarea.form-control(type='text', value='#{flower.description}', name='description')
 
-      .form-group
-        label Изображение
-        input(type='file', name='image')
+        .form-group
+          label Тип
+          input.form-control(type='text', value='#{flower.type}', name='type')
 
-      input(type='hidden',value='PUT',name='_method')
+        .form-group
+          label Цвет
+          input.form-control(type='text', value='#{flower.color}', name='color')
 
-      .actions
-        button.btn.btn-primary(type="submit") Сохранить
+        .form-group
+          label Изображение
+          input(type='file', name='image')
+
+        input(type='hidden',value='PUT',name='_method')
+
+        .actions
+          button.btn.btn-primary(type="submit") Сохранить
