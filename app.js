@@ -1,3 +1,5 @@
+"use strict";
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -6,13 +8,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
-var flash    = require('connect-flash');
+var flash = require('connect-flash');
+var less = require('less-middleware');
 var mongoose = require('mongoose');
 var MongoStore = require('connect-mongo')(session);
-
 var db = require('./config/db');
-var routes = require('./routes/api/index');
-var Flower = require('./models/flower');
 
 var app = express();
 
@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // public
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
