@@ -3,7 +3,7 @@ extends ../layout
 block content
   section.content
     .box-body
-      form(action='/admin/flowers/#{flower._id}/edit', method='post', name='updateflower', enctype='multipart/form-data')
+      form(action='/admin/flowers/#{flower._id}/edit', method='post', enctype='multipart/form-data')
 
         .form-group
           label Название
@@ -12,12 +12,13 @@ block content
         .form-group
           label Цена
           .input-group
+            span.input-group-addon ₽
             input.form-control(type='number', value='#{flower.price}', name='price', min='0')
             span.input-group-addon .00
 
         .form-group
           label Описание
-          textarea.form-control(type='text', value='#{flower.description}', name='description')
+          input.form-control(type='text', value='#{flower.description}', name='description')
 
         .form-group
           label Тип
@@ -29,7 +30,7 @@ block content
 
         .form-group
           label Изображение
-          input(type='file', name='image')
+          input(type='file', value='#{flower.image}', name='image')
 
         input(type='hidden',value='PUT',name='_method')
 

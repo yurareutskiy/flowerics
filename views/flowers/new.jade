@@ -2,6 +2,7 @@ extends ../layout
 
 block content
   section.content
+    h1 Создание нового букета
     .box-body
       form(method='post', action='/admin/flowers', enctype='multipart/form-data')
 
@@ -12,12 +13,13 @@ block content
         .form-group
           label Цена
           .input-group
+            span.input-group-addon ₽
             input.form-control(type='number', name='price', min='0')
             span.input-group-addon .00
 
         .form-group
           label Описание
-          textarea.form-control(type='text', placeholder='Описание', name='description')
+          input.form-control(type='text', placeholder='Описание', name='description')
 
         .form-group
           label Тип

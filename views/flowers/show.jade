@@ -1,26 +1,34 @@
 extends ../layout
 
 block content
-  .container
+  section.content
     h1 Цветы: #{flower.name}
+    .box-body
+      .form-group
+        a(href='#{flower._id}/edit')
+          button.btn.btn-default Изменить
 
-    .form-group
-      a(href='#{flower._id}/edit')
-        button.btn.btn-default Изменить
+      .form-group
+        strong Название: 
+        = flower.name
 
-    .form-group
-      strong Название: 
-      = flower.name
+      .form-group
+        strong Цена: 
+        = flower.price
 
-    .form-group
-      strong Цена: 
-      = flower.price
+      .form-group
+        strong Описание: 
+        = flower.description
 
-    .form-group
-      strong Описание: 
-      = flower.description
+      .form-group
+        strong Тип: 
+        = flower.type
 
-    .form-group
-      strong Изображение:
-      p
-        img(src= '/uploads/#{flower.image}')
+      .form-group
+        strong Цвет: 
+        = flower.color
+
+      .form-group
+        strong Изображение:
+        p
+          img(src= '/uploads/#{flower.image}')
