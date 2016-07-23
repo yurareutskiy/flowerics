@@ -1,7 +1,11 @@
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
+    FacebookStrategy = require('passport-facebook').Strategy,
+    VKontakteStrategy = require('passport-vkontakte').Strategy,
     Admin = require('../models/admin'),
-    flash = require('connect-flash');
+    User = require('../models/user'),
+    flash = require('connect-flash'),
+    configAuth = require('./auth.js');
 
 passport.serializeUser(function(admin, done) {
   done(null, admin.id);
@@ -28,6 +32,59 @@ passport.use('local', new LocalStrategy({
         return done(null, false, req.flash('message', 'Неправильный пароль'));
       }
       return done(null, admin);
+    });
+  }
+));
+
+// FACEBOOK
+passport.use(new FacebookStrategy({
+  clientID        : configAuth.facebookAuth.clientID,
+  clientSecret    : configAuth.facebookAuth.clientSecret,
+  callbackURL     : configAuth.facebookAuth.callbackURL,
+  profileFields: ['id', 'displayName', 'email']
+},
+
+function(token, refreshToken, profile, done) {
+  process.nextTick(function() {
+    // find the user in the database based on their facebook id
+    User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
+      if (err)
+        return done(err);
+      // if the user is found, then log them in
+      if (user) {
+        return done(null, user);
+      }
+      else {
+        // if there is no user found with that facebook id, create them
+        var newUser = new User();
+
+        // set all of the facebook information in our user model
+        newUser.facebook.id    = profile.id;
+        newUser.facebook.token = token;
+        newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName;
+        newUser.facebook.email = profile.emails[0].value;
+
+        // save our user to the database
+        newUser.save(function(err) {
+          if (err)
+              throw err;
+          // if successful, return the new user
+          return done(null, newUser);
+        });
+      }
+    });
+  });
+}));
+
+// VKONTAKTE
+passport.use(new VKontakteStrategy({
+    clientID:     configAuth.vkontakteAuth.clientID,
+    clientSecret: configAuth.vkontakteAuth.clientSecret,
+    callbackURL:  configAuth.vkontakteAuth.callbackURL
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ vkontakteId: profile.id }, function (err, user) {
+      return done(err, user);
     });
   }
 ));
