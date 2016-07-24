@@ -1,51 +1,93 @@
 extends layout
 block content
-	// Content Header (Page header)
-	section.content-header
-		h1
-			| Доска
-		ol.breadcrumb
-			li
-				a(href='#')
-					i.fa.fa-dashboard
-					| Home
-			li.active Доска
-	section.content
-		.row
-			.col-lg-3.col-xs-6
-				.small-box.bg-yellow
-					.inner
-						h3= bouquets.length
-						p
-							| Букеты
-					.icon
-						i.ion.ion-ios-rose
-					a.small-box-footer(href='/admin/bouquets')
-						| Подробнее
-						i.fa.fa-arrow-circle-right
-			.col-lg-3.col-xs-6
-				.small-box.bg-aqua
-					.inner
-						h3
-							| 24
-						p
-							| Заказы
-					.icon
-						i.ion.ion-bag
-					a.small-box-footer(href='/admin/orders')
-						| Подробнее
-						i.fa.fa-arrow-circle-right
-			.col-lg-3.col-xs-6
-				.small-box.bg-red
-					.inner
-						h3
-							| 15
-						p
-							| Пользователи
-					.icon
-						i.ion.ion-person
-					a.small-box-footer(href='/admin/users')
-						| Подробнее
-						i.fa.fa-arrow-circle-right
-
-include layout/script
+  .wrapper.wrapper-content
+    .row
+      .col-lg-3
+        .ibox.float-e-margins
+          .ibox-title
+            span.label.label-success.pull-right Monthly
+            h5 Income
+          .ibox-content
+            h1.no-margins 40 886,200
+            .stat-percent.font-bold.text-success
+              | 98% 
+              i.fa.fa-bolt
+            small Total income
+      .col-lg-3
+        .ibox.float-e-margins
+          .ibox-title
+            span.label.label-info.pull-right Annual
+            h5 Orders
+          .ibox-content
+            h1.no-margins 275,800
+            .stat-percent.font-bold.text-info
+              | 20% 
+              i.fa.fa-level-up
+            small New orders
+      .col-lg-3
+        .ibox.float-e-margins
+          .ibox-title
+            span.label.label-primary.pull-right Today
+            h5 Vistits
+          .ibox-content
+            h1.no-margins 106,120
+            .stat-percent.font-bold.text-navy
+              | 44% 
+              i.fa.fa-level-up
+            small New visits
+      .col-lg-3
+        .ibox.float-e-margins
+          .ibox-title
+            span.label.label-danger.pull-right Low value
+            h5 User activity
+          .ibox-content
+            h1.no-margins 80,600
+            .stat-percent.font-bold.text-danger
+              | 38% 
+              i.fa.fa-level-down
+            small In first month
+    .row
+      .col-lg-12
+        .ibox.float-e-margins
+          .ibox-title
+            h5 Orders
+            .pull-right
+              .btn-group
+                button.btn.btn-xs.btn-white.active(type='button') Today
+                button.btn.btn-xs.btn-white(type='button') Monthly
+                button.btn.btn-xs.btn-white(type='button') Annual
+          .ibox-content
+            .row
+              .col-lg-9
+                .flot-chart
+                  #flot-dashboard-chart.flot-chart-content
+              .col-lg-3
+                ul.stat-list
+                  li
+                    h2.no-margins 2,346
+                    small Total orders in period
+                    .stat-percent
+                      | 48% 
+                      i.fa.fa-level-up.text-navy
+                    .progress.progress-mini
+                      .progress-bar(style='width: 48%;')
+                  li
+                    h2.no-margins 4,422
+                    small Orders in last month
+                    .stat-percent
+                      | 60% 
+                      i.fa.fa-level-down.text-navy
+                    .progress.progress-mini
+                      .progress-bar(style='width: 60%;')
+                  li
+                    h2.no-margins 9,180
+                    small Monthly income from orders
+                    .stat-percent
+                      | 22% 
+                      i.fa.fa-bolt.text-navy
+                    .progress.progress-mini
+                      .progress-bar(style='width: 22%;')
+  .footer
+    div
+      strong Copyright
+      |  Example Company © 2016-2017

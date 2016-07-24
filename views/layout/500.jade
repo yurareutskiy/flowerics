@@ -1,44 +1,26 @@
-block content
-  // Content Header (Page header)
-  section.content-header
-    h1
-      | 500 Error Page
-    ol.breadcrumb
-      li
-        a(href='#')
-          i.fa.fa-dashboard
-          | Home
-      li
-        a(href='#') Examples
-      li.active 500 error
-  // Main content
-  section.content
-    .error-page
-      h2.headline 500
-      .error-content
-        h3
-          i.fa.fa-warning.text-yellow
-          | Oops! Something went wrong.
-        p
-          | We will work on fixing that right away.
-          | Meanwhile, you may
-          a(href='../../index.html') return to dashboard
-          | or try using the search form.
-        form.search-form
-          .input-group
-            input.form-control(type='text', name='search', placeholder='Search')
-            .input-group-btn
-              button.btn.btn-info(type='submit', name='submit')
-                i.fa.fa-search
-          // /.input-group
-    // /.error-page
-  // /.content
-block javascript
-  // jQuery 2.0.2
-  script(src='/js/libs/jquery.min.js')
-  // Bootstrap
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title Flowerics | 500 Error
+    meta(content='width=device-width, initial-scale=1.0', name='viewport')
+    link(href='/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/font-awesome/css/font-awesome.css', rel='stylesheet')
+    link(href='/css/animate.css', rel='stylesheet')
+    link(href='/css/style.css', rel='stylesheet')
+
+  body.gray-bg
+    .middle-box.text-center.animated.fadeInDown
+      h1
+        | 500
+      h3.font-bold
+        | Internal Server Error
+      .error-desc
+        | The server encountered something unexpected that didn't allow it to complete the request. We apologize.
+        br
+        | You can go back to main page:
+        br
+        a(href='/admin/dashboard').btn.btn-primary.m-t Dashboard
+
+  script(src='/js/jquery-2.1.1.js')
   script(src='/js/bootstrap.min.js', type='text/javascript')
-  // AdminLTE App
-  script(src='/js/AdminLTE/app.js', type='text/javascript')
-  // AdminLTE for demo purposes
-  script(src='/js/AdminLTE/demo.js', type='text/javascript')

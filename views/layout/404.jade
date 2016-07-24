@@ -1,34 +1,26 @@
-block content
-  // Content Header (Page header)
-  section.content-header
-    h1
-      | 404 Error Page
-    ol.breadcrumb
-      li
-        a(href='#')
-          i.fa.fa-dashboard
-          | Home
-      li
-        a(href='#') Examples
-      li.active 404 error
-  // Main content
-  section.content
-    .error-page
-      h2.headline.text-info  404
-      .error-content
-        h3
-          i.fa.fa-warning.text-yellow
-          | Oops! Page not found.
-        p
-          | We could not find the page you were looking for.
-          | Meanwhile, you may
-          a(href='/admin/dashboard') return to dashboard
-block javascript
-  // jQuery 2.0.2
-  script(src='/js/libs/jquery.min.js')
-  // Bootstrap
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title Flowerics | 404 Error
+    meta(content='width=device-width, initial-scale=1.0', name='viewport')
+    link(href='/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/font-awesome/css/font-awesome.css', rel='stylesheet')
+    link(href='/css/animate.css', rel='stylesheet')
+    link(href='/css/style.css', rel='stylesheet')
+
+  body.gray-bg
+    .middle-box.text-center.animated.fadeInDown
+      h1
+        | 404
+      h3.font-bold
+        | Page Not Found
+      .error-desc
+        | Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.
+        form(role='form').form-inline.m-t
+          .form-group
+            input(type='text', placeholder='Search for page').form-control
+          button(type='submit').btn.btn-primary Search
+
+  script(src='/js/jquery-2.1.1.js')
   script(src='/js/bootstrap.min.js', type='text/javascript')
-  // AdminLTE App
-  script(src='/js/AdminLTE/app.js', type='text/javascript')
-  // AdminLTE for demo purposes
-  script(src='/js/AdminLTE/demo.js', type='text/javascript')

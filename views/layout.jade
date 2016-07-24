@@ -1,67 +1,54 @@
 doctype html
 html
-	include layout/header
-	body.skin-blue
-		// header logo: style can be found in header.less
-		header.header
-			a.logo(href='/admin/dashboard')
-				// Add the class icon to your logo image or logo icon to add the margining
-				| Flowerics
-			// Header Navbar: style can be found in header.less
-			nav.navbar.navbar-static-top(role='navigation')
-				a.navbar-btn.sidebar-toggle(href='#', data-toggle='offcanvas', role='button')
-					span.sr-only Toggle navigation
-					span.icon-bar
-					span.icon-bar
-					span.icon-bar
-				.collapse.navbar-collapse
-					ul.nav.navbar-nav.navbar-right
-						li(style='padding-right:15px;')
-							a(href='/admin/logout') Выйти
-		.wrapper.row-offcanvas.row-offcanvas-left
-			// Left side column. contains the logo and sidebar
-			aside.left-side.sidebar-offcanvas
-				// sidebar: style can be found in sidebar.less
-				section.sidebar
-					// search form
-					form.sidebar-form(action='#', method='get')
-						.input-group
-							input.form-control(type='text', name='q', placeholder='Search...')
-							span.input-group-btn
-								button#search-btn.btn.btn-flat(type='submit', name='seach')
-									i.fa.fa-search
-					ul.sidebar-menu
-						li.active
-							a(href='/admin/dashboard')
-								i.fa.fa-dashboard
-								span Доска
-						li.treeview
-							a(href='#')
-								i.ion.ion-ios-rose
-								span Цветы
-								i.fa.fa-angle-left.pull-right
-							ul.treeview-menu
-								li
-									a(href='/admin/bouquets')
-										i.fa.fa-angle-right
-										| Список
-								li
-									a(href='/admin/bouquets/new')
-										i.fa.fa-angle-right
-										| Добавить
-						li
-							a(href='/admin/users')
-								i.ion.ion-person
-								span Пользователи
-						li
-							a(href='/admin/orders')
-								i.ion.ion-bag
-								span Заказы
-						li
-							a(href='/admin/orders')
-								i.ion.ion-ios-cart
-								span Скидки
-			aside.right-side
-				block content
-		block message-modal
-		include layout/script
+  head
+    meta(charset='UTF-8')
+    title Flowerics | Dashboard
+    meta(content='width=device-width, initial-scale=1.0', name='viewport')
+    link(href='/css/bootstrap.min.css', rel='stylesheet', type='text/css')
+    link(href='/font-awesome/css/font-awesome.css', rel='stylesheet')
+    link(href='/css/animate.css', rel='stylesheet')
+    link(href='/css/style.css', rel='stylesheet')
+    link(href='/css/ionicons.css', rel='stylesheet')
+    include layout/script
+
+  nav(role='navigation').navbar-default.navbar-static-side
+    .sidebar-collapse
+      ul#side-menu.nav.metismenu
+        li.nav-header
+          div.logo-element Fl
+          li
+            a(href='/admin/dashboard')
+              i.fa.fa-th-large
+              span.nav-label Dashboard
+          li
+            a(href='#')
+              i.ion.ion-ios-rose
+              span.nav-label
+                |  Букеты
+              span.fa.arrow
+            ul.nav.nav-second-level.collapse
+              li
+                a(href='/admin/bouquets') Каталог
+              li
+                a(href='/admin/bouquets/new') Создать новый
+          li
+            a(href='/admin/users')
+              i.ion.ion-person
+              span.nav-label Пользователи
+          li
+            a(href='#')
+              i.ion.ion-pricetag
+              span.nav-label Акции
+  #page-wrapper.gray-bg
+    .row.border-bottom
+      nav.navbar.navbar-static-top.white-bg(role='navigation', style='margin-bottom: 0')
+        .navbar-header
+          a.navbar-minimalize.minimalize-styl-2.btn.btn-primary(href='#')
+            i.fa.fa-bars
+
+        ul.nav.navbar-top-links.navbar-right
+          li
+            a(href='/admin/logout')
+              i.fa.fa-sign-out
+              | Выйти
+    block content

@@ -1,7 +1,4 @@
-extends layout
-
-block content
-  if error.status == 404
-    include layout/404
-  else if error.status == 500
-    include layout/500
+if error.status == 404
+  include layout/404
+else if error.status == 500
+  include layout/500
