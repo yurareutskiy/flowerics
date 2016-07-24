@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+  section.content
+    .box-body
+      form(action='/admin/bouquets/#{bouquet._id}/edit', method='post', enctype='multipart/form-data')
+
+        .form-group
+          label Название
+          input.form-control(type='text', value='#{bouquet.name}', name='name')
+
+        .form-group
+          label Цена
+          .input-group
+            span.input-group-addon ₽
+            input.form-control(type='number', value='#{bouquet.price}', name='price', min='0')
+            span.input-group-addon .00
+
+        .form-group
+          label Описание
+          input.form-control(type='text', value='#{bouquet.description}', name='description')
+
+        .form-group
+          label Цвет
+          input.form-control(type='text', value='#{bouquet.color}', name='color')
+
+        .form-group
+          label Иконка цвета
+          input(type='file', value='#{bouquet.color_image}', name='color_image')
+
+        .form-group
+          label Изображение
+          input(type='file', value='#{bouquet.image}', name='image')
+
+        input(type='hidden',value='PUT',name='_method')
+
+        .actions
+          button.btn.btn-primary(type="submit") Сохранить

@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  section.content
+    h1 Цветы: #{bouquet.name}
+    .box-body
+      .form-group
+        a(href='#{bouquet._id}/edit')
+          button.btn.btn-default Изменить
+
+      .form-group
+        strong Название: 
+        = bouquet.name
+
+      .form-group
+        strong Цена: 
+        = bouquet.price
+
+      .form-group
+        strong Описание: 
+        = bouquet.description
+
+      .form-group
+        strong Тип: 
+        = bouquet.type
+
+      .form-group
+        strong Цвет: 
+        = bouquet.color
+
+      .form-group
+        strong Иконка цвета:
+        p
+          img(src= '/uploads/#{bouquet.color_image}')
+
+      .form-group
+        strong Изображение:
+        p
+          img(src= '/uploads/#{bouquet.image}')

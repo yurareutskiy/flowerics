@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+  section.content
+    h1 Создание нового букета
+    .box-body
+      form(method='post', action='/admin/bouquets', enctype='multipart/form-data')
+
+        .form-group
+          label Название
+          input.form-control(type='text', placeholder='Название', name='name')
+
+        .form-group
+          label Цена
+          .input-group
+            span.input-group-addon ₽
+            input.form-control(type='number', name='price', min='0')
+            span.input-group-addon .00
+
+        .form-group
+          label Описание
+          input.form-control(type='text', placeholder='Описание', name='description')
+
+        .form-group
+          label Описание для флориста
+          input.form-control(type='text', placeholder='Описание', name='prescription')
+
+        .form-group
+          label Тип
+          input.form-control(type='text', placeholder='Тип', name='type')
+
+        .form-group
+          label Цвет
+          input.form-control(type='text', placeholder='Цвет', name='color')
+
+        .form-group
+          label Изображение
+          input(type='file', name='image')
+
+        .form-group
+          label Иконка цвета
+          input(type='file', name='color_icon')
+
+        .actions
+          button.btn.btn-primary(type='submit') Добавить
