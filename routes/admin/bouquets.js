@@ -31,7 +31,7 @@ router.route('/')
       description: req.body.description,
       price: req.body.price,
       image: req.files.filename,
-      color_image: req.files.filename
+      color_image: req.files.filename,
       color: req.body.color
     });
     bouquet.save(function(err, bouquet) {
