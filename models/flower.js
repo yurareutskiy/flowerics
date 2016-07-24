@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    fs = require('fs');
 
 var flowerSchema = Schema({
   name: {
@@ -7,25 +8,11 @@ var flowerSchema = Schema({
     trim: true,
     required: true
   },
-  description: {
-    type: String,
-    trim: true
-  },
-  image: {
-    type: String,
-    trim: true,
-    required: true
-  },
-  price: {
-    type: Number,
-    required: true,
-    min: 0
-  },
-  created_at: {
-    type: Date,
-    default: Date.now
+  bouquet: {
+    type : Schema.ObjectId,
+    ref : 'Bouquet'
   }
-});
+}, { timestamps: true });
 
 var Flower = module.exports = mongoose.model('Flower', flowerSchema);
 
@@ -44,17 +31,8 @@ module.exports.createFlower = function(flower, callback) {
 module.exports.updateFlower = function(id, flower, options, callback) {
   var query = {_id: id};
   var update = {
-    name: flower.name,
-    price: flower.price,
-    description: flower.description,
-    image: flower.image
+    name: flower.name
   };
-  var options = { runValidators: true };
 
   Flower.findOneAndUpdate(query, update, options, callback);
-};
-
-module.exports.removeFlower = function(id, callback) {
-  var query = {_id: id};
-  Flower.remove(query, callback);
 };
