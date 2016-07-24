@@ -10,7 +10,7 @@ router.route('/')
     });
   })
   .post(passport.authenticate('local', {
-    successRedirect : '/admin/flowers',
+    successRedirect : '/admin/dashboard',
     failureRedirect : '/admin/login',
     failureFlash : true
   }));
