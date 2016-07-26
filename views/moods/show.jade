@@ -2,12 +2,12 @@ extends ../layout
 
 block content
   section.content
-    h1 Цветы: #{flower.name}
+    h1 Настроение: #{mood.name}
     .box-body
       .form-group
-        a(href='#{flower._id}/edit')
+        a(href='#{mood._id}/edit')
           button.btn.btn-default Изменить
 
       .form-group
         strong Название: 
-        = flower.name
+        = mood.name

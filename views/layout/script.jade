@@ -36,3 +36,17 @@ block javascript
 
   // Sparkline demo data
   script(src='/js/demo/sparkline-demo.js', type='text/javascript')
+
+  // Other
+  script(src='/js/plugins/chosen/chosen.jquery.js', type='text/javascript')
+  script.
+    var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+        '.chosen-select-width'     : {width:"95%"}
+        }
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }

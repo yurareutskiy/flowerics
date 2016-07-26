@@ -9,7 +9,7 @@ html
     link(href='/css/animate.css', rel='stylesheet')
     link(href='/css/style.css', rel='stylesheet')
     link(href='/css/ionicons.css', rel='stylesheet')
-    include layout/script
+    link(href='/css/plugins/chosen/chosen.css', rel='stylesheet')
 
   nav(role='navigation').navbar-default.navbar-static-side
     .sidebar-collapse
@@ -32,6 +32,28 @@ html
               li
                 a(href='/admin/bouquets/new') Создать новый
           li
+            a(href='#')
+              i.ion.ion-ios-flower
+              span.nav-label
+                |  Цветы
+              span.fa.arrow
+            ul.nav.nav-second-level.collapse
+              li
+                a(href='/admin/flowers') Список
+              li
+                a(href='/admin/flowers/new') Добавить
+          li
+            a(href='#')
+              i.ion.ion-happy-outline
+              span.nav-label
+                |  Настроения
+              span.fa.arrow
+            ul.nav.nav-second-level.collapse
+              li
+                a(href='/admin/moods') Список
+              li
+                a(href='/admin/moods/new') Добавить
+          li
             a(href='/admin/users')
               i.ion.ion-person
               span.nav-label Пользователи
@@ -52,3 +74,4 @@ html
               i.fa.fa-sign-out
               | Выйти
     block content
+    include layout/script

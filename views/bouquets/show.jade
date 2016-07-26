@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   section.content
-    h1 Цветы: #{bouquet.name}
+    h1 Букет: #{bouquet.name}
     .box-body
       .form-group
         a(href='#{bouquet._id}/edit')
@@ -21,8 +21,8 @@ block content
         = bouquet.description
 
       .form-group
-        strong Тип: 
-        = bouquet.type
+        strong Описание для флориста: 
+        = bouquet.prescription
 
       .form-group
         strong Цвет: 

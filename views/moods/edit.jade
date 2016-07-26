@@ -3,11 +3,11 @@ extends ../layout
 block content
   section.content
     .box-body
-      form(action='/admin/flowers/#{flower._id}/edit', method='post', enctype='application/x-www-form-urlencoded')
+      form(action='/admin/moods/#{mood._id}/edit', method='post', enctype='application/x-www-form-urlencoded')
 
         .form-group
           label Название
-          input.form-control(type='text', value='#{flower.name}', name='name')
+          input.form-control(type='text', value='#{mood.name}', name='name')
 
         input(type='hidden',value='PUT',name='_method')
 
