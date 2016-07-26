@@ -1,7 +1,11 @@
 var router = require('express').Router(),
     Bouquet = require('../../models/bouquet'),
+    Flower = require('../../models/flower'),
+    Mood = require('../../models/mood'),
+    async = require('async'),
     multer  = require('multer'),
-    mime  = require('mime');
+    mime  = require('mime'),
+    qs = require('qs');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -25,25 +29,43 @@ router.route('/')
       });
     });
   })
-  .post(upload.single('image'), function (req, res, next) {
+  .post(function (req, res, next) {
     var bouquet = new Bouquet({
       name: req.body.name,
       description: req.body.description,
+      prescription: req.body.prescription,
       price: req.body.price,
       image: req.files.filename,
-      color_image: req.files.filename,
       color: req.body.color
     });
+    bouquet.flowers.push({ name : qs.stringify(req.body.flowers) });
+    bouquet.moods.push({ name : qs.stringify(req.body.moods) });
     bouquet.save(function(err, bouquet) {
       if (err) {
-        res.render('/', { error: res.locals.err });
+        res.send(err);
       }
+
       res.redirect('/admin/bouquets');
     });
   });
 
 router.get('/new', function(req, res) {
-  res.render('bouquets/new');
+    var FlowerObj = Flower.find({});
+    var MoodObj = Mood.find({});
+    var resources = {
+      flowers: FlowerObj.exec.bind(FlowerObj),
+      moods: MoodObj.exec.bind(MoodObj)
+    };
+
+    async.parallel(resources, function (error, results){
+      if (error) {
+        res.status(500).send(error);
+        return;
+      }
+      res.render('bouquets/new', {
+        'results' : results
+      });
+    });
 });
 
 router.route('/:id')

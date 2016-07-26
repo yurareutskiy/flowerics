@@ -16,6 +16,8 @@ router.use('/bouquets', passport.isLoggedIn, require('./bouquets'));
 router.use('/users', passport.isLoggedIn, require('./users'));
 router.use('/orders', passport.isLoggedIn, require('./orders'));
 router.use('/dashboard', passport.isLoggedIn, require('./dashboard'));
+router.use('/flowers', passport.isLoggedIn, require('./flowers'));
+router.use('/moods', passport.isLoggedIn, require('./moods'));
 router.use('/login', require('./login'));
 router.use('/logout', require('./logout'));
 
