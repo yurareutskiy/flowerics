@@ -7,6 +7,7 @@
     "test": "node test/*/test-*.js | tap-spec"
   },
   "dependencies": {
+    "async": "^2.0.1",
     "body-parser": "~1.15.1",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^1.2.1",
@@ -23,6 +24,7 @@
     "passport-local": "^1.0.0",
     "passport-vkontakte": "^0.3.1",
     "pug": "^2.0.0-beta3",
+    "qs": "^6.2.1",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
