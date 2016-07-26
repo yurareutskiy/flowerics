@@ -18,15 +18,15 @@ var Flower = module.exports = mongoose.model('Flower', flowerSchema);
 
 module.exports.getFlowers = function(callback, limit) {
   Flower.find(callback).limit(limit);
-};
+}
 
 module.exports.getFlowerById = function(id, callback) {
   Flower.findById(id, callback);
-};
+}
 
 module.exports.createFlower = function(flower, callback) {
   Flower.create(flower, callback);
-};
+}
 
 module.exports.updateFlower = function(id, flower, options, callback) {
   var query = {_id: id};
@@ -35,4 +35,10 @@ module.exports.updateFlower = function(id, flower, options, callback) {
   };
 
   Flower.findOneAndUpdate(query, update, options, callback);
-};
+}
+
+module.exports.removeFlower = function(id, callback) {
+  var query = {_id: id};
+  Flower.remove(query, callback);
+}
+

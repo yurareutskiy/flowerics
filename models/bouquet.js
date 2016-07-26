@@ -1,5 +1,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
+    flower = require('./flower'),
+    mood = require('./mood')
     fs = require('fs');
 
 var bouquetSchema = Schema({
@@ -26,18 +28,12 @@ var bouquetSchema = Schema({
     index: true,
     min: 0
   },
-  flower: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Flower'
-  }],
   color: {
     type: String,
     required: true
   },
-  color_icon: {
-    type: String,
-    trim: true
-  }
+  moods: [mood.schema],
+  flowers: [flower.schema]
 }, { timestamps: true });
 
 var Bouquet = module.exports = mongoose.model('Bouquet', bouquetSchema);
