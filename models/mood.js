@@ -1,6 +1,5 @@
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    fs = require('fs');
+    Schema = mongoose.Schema;
 
 var moodSchema = Schema({
   name: {
