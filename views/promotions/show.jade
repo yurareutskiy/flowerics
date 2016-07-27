@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  section.content
+    h1 Акция
+    .box-body
+      .form-group
+        a(href='#{promotion._id}/edit')
+          button.btn.btn-default Изменить
+
+      .form-group
+        strong Название: 
+        = promotion.name
+
+      .form-group
+        strong Описание: 
+        = promotion.description
+
+      .form-group
+        strong Изображение:
+        p
+          img(src='/uploads/#{promotion.image}')

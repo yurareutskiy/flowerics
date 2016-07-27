@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  section.content
+    h1 Создание новой акции
+    .box-body
+      form(method='post', action='/admin/promotions', enctype='multipart/form-data')
+
+        .form-group
+          label Название
+          input.form-control(type='text', placeholder='Название', name='name')
+
+        .form-group
+          label Описание
+          input.form-control(type='text', placeholder='Описание', name='description')
+
+        .form-group
+          label Фотография
+          input(type='file', name='image')
+
+        .actions
+          button.btn.btn-primary(type='submit') Добавить

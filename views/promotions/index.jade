@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  .container
+    h1 Букеты
+
+    .table-responsive
+      table.table
+        thead
+          tr
+            th Название
+            th Описание
+            th Изображение
+            th Управление
+            th &nbsp;
+        tbody
+          for promotion in promotions
+            tr
+              td
+                a(href='promotions/#{promotion._id}')
+                  = promotion.name
+              td= promotion.description
+              td
+                img(src= '/uploads/#{promotion.image}')
+              td
+                a(href='promotions/#{promotion._id}/edit')
+                  button.btn.btn-warning Изменить
+              td
+                form(action='/admin/promotions/#{promotion._id}', method='post', enctype='application/x-www-form-urlencoded')
+                  input(type='hidden',value='DELETE',name='_method')
+                  button.btn.btn-danger(type='submit') Удалить
