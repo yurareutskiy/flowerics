@@ -8227,3 +8227,12 @@ body.md-skin {
     margin: 0;
   }
 }
+.delete-button {
+  border: none;
+  background-color: #fff;
+  color: #c4c4c4;
+  font-size: 10pt;
+}
+.padding-card {
+  padding-right: 3.5em;
+}
