@@ -22,6 +22,10 @@ var bouquetSchema = Schema({
     type: String,
     trim: true
   },
+  icon: {
+    type: String,
+    trim: true
+  },
   price: {
     type: Number,
     required: true,
@@ -59,7 +63,7 @@ module.exports.updateBouquet = function(id, bouquet, options, callback) {
     prescription: bouquet.prescription,
     color: bouquet.color,
     image: bouquet.image,
-    color_icon: bouquet.color_icon
+    icon: bouquet.icon
   };
 
   Bouquet.findOneAndUpdate(query, update, options, callback);
@@ -67,5 +71,5 @@ module.exports.updateBouquet = function(id, bouquet, options, callback) {
 
 bouquetSchema.post('remove', function(bouquet) {
   fs.unlink(__dirname +'/../public/uploads/' + bouquet.image);
-  fs.unlink(__dirname +'/../public/uploads/' + bouquet.color_image);
+  fs.unlink(__dirname +'/../public/uploads/' + bouquet.icon);
 });

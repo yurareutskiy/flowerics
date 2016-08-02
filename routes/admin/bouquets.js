@@ -16,7 +16,12 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({ storage: storage });
+var upload = multer({ storage: storage }).fields(
+              [
+                { name: 'image', maxCount: 1 },
+                { name: 'icon', maxCount: 1 }
+              ]
+            );
 
 router.route('/')
   .get(function (req, res, next) {
@@ -29,17 +34,18 @@ router.route('/')
       });
     });
   })
-  .post(function (req, res, next) {
+  .post(upload, function (req, res, next) {
     var bouquet = new Bouquet({
       name: req.body.name,
       description: req.body.description,
       prescription: req.body.prescription,
       price: req.body.price,
-      image: req.files.filename,
+      image: req.files['image'][0].filename,
+      icon: req.files['icon'][0].filename,
       color: req.body.color
     });
-    bouquet.flowers.push({ name : qs.stringify(req.body.flowers) });
-    bouquet.moods.push({ name : qs.stringify(req.body.moods) });
+    // bouquet.flowers.push({ name : qs.stringify(req.body.flowers) });
+    // bouquet.moods.push({ name : qs.stringify(req.body.moods) });
     bouquet.save(function(err, bouquet) {
       if (err) {
         res.send(err);

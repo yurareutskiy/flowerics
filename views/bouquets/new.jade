@@ -26,6 +26,10 @@ block content
           input.form-control(type='text', placeholder='Описание', name='prescription')
 
         .form-group
+          label Цвет
+          input.form-control(type='text', placeholder='Цвет', name='color')
+
+        .form-group
           label.font-noraml Cостав
           .input-group
             select(data-placeholder='Выберите цветы' multiple style='width:500px;' tabindex='4' name='flowers').chosen-select
@@ -40,16 +44,12 @@ block content
                 option= mood.name
 
         .form-group
-          label Название цвета
-          input.form-control(type='text', placeholder='Цвет', name='color')
-
-        .form-group
           label Фотография
           input(type='file', name='image')
 
         .form-group
           label Иконка цвета
-          input(type='file', name='color_icon')
+          input(type='file', name='icon')
 
         .actions
           button.btn.btn-primary(type='submit') Добавить

@@ -4,30 +4,17 @@ block content
   .container
     h1 Букеты
 
-    .table-responsive
-      table.table
-        thead
-          tr
-            th Название
-            th Описание
-            th Цена
-            th Изображение
-            th Управление
-            th &nbsp;
-        tbody
-          for bouquet in bouquets
-            tr
-              td
-                a(href='bouquets/#{bouquet._id}')
-                  = bouquet.name
-              td= bouquet.description
-              td= bouquet.price
-              td
-                img(src= '/uploads/#{bouquet.image}')
-              td
-                a(href='bouquets/#{bouquet._id}/edit')
-                  button.btn.btn-warning Изменить
-              td
-                form(action='/admin/bouquets/#{bouquet._id}', method='post', enctype='application/x-www-form-urlencoded')
-                  input(type='hidden',value='DELETE',name='_method')
-                  button.btn.btn-danger(type='submit') Удалить
+    for bouquet in bouquets
+      .col-lg-3.padding-card
+        .ibox.float-e-margins
+          img(src= '/uploads/#{bouquet.image}')
+          .ibox-title
+            a(href='bouquets/#{bouquet._id}')
+              h5= bouquet.name
+            .ibox-tools
+              a(href='bouquets/#{bouquet._id}/edit')
+                i.fa.fa-wrench
+              form(action='/admin/bouquets/#{bouquet._id}', method='post', enctype='application/x-www-form-urlencoded')
+                input(type='hidden',value='DELETE',name='_method')
+                button.delete-button(type='submit')
+                  i.fa.fa-times
