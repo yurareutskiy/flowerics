@@ -44,8 +44,8 @@ router.route('/')
       icon: req.files['icon'][0].filename,
       color: req.body.color
     });
-    // bouquet.flowers.push({ name : qs.stringify(req.body.flowers) });
-    // bouquet.moods.push({ name : qs.stringify(req.body.moods) });
+    bouquet.flowers.push({ name : req.body.flowers });
+    bouquet.moods.push({ name : req.body.moods });
     bouquet.save(function(err, bouquet) {
       if (err) {
         res.send(err);

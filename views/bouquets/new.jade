@@ -34,14 +34,14 @@ block content
           .input-group
             select(data-placeholder='Выберите цветы' multiple style='width:500px;' tabindex='4' name='flowers').chosen-select
               each flower in results.flowers
-                option= flower.name
+                option(value='#{flower.name}')= flower.name
 
         .form-group
           label.font-noraml Настроения
           .input-group
             select(data-placeholder='Выберите настроения' multiple style='width:500px;' tabindex='4' name='moods').chosen-select
               each mood in results.moods
-                option= mood.name
+                option(value='#{mood.name}')= mood.name
 
         .form-group
           label Фотография

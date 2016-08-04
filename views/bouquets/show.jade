@@ -29,6 +29,16 @@ block content
         = bouquet.color
 
       .form-group
+        strong Настроения: 
+        for mood in bouquet.moods
+          = mood.name
+
+      .form-group
+        strong Цветы: 
+        for flower in bouquet.flowers
+          = flower.name
+
+      .form-group
         strong Иконка цвета:
         p
           img(src='/uploads/#{bouquet.icon}')
