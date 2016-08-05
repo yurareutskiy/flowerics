@@ -1,2 +1,10 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/flowerics_development');
+var env = process.env.NODE_ENV || 'development';
+var development = require('./env/development');
+var production = require('./env/production');
+
+if (env === 'production') {
+  mongoose.connect(production.db);
+} else {
+  mongoose.connect(development.db);
+}
