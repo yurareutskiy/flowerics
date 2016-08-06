@@ -7,7 +7,7 @@ block content
     for bouquet in bouquets
       .col-lg-3.padding-card
         .ibox.float-e-margins
-          img(src= '/uploads/#{bouquet.image}')
+          img(src= "/uploads/#{bouquet.images['0']}")
           .ibox-title
             a(href='bouquets/#{bouquet._id}')
               h5= bouquet.name

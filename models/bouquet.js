@@ -18,10 +18,7 @@ var bouquetSchema = Schema({
     type: String,
     trim: true
   },
-  image: {
-    type: String,
-    trim: true
-  },
+  images: [String],
   icon: {
     type: String,
     trim: true
@@ -70,6 +67,8 @@ module.exports.updateBouquet = function(id, bouquet, options, callback) {
 };
 
 bouquetSchema.post('remove', function(bouquet) {
-  fs.unlink(__dirname +'/../public/uploads/' + bouquet.image);
+  for(i = 0; i < bouquet.images.length; i++) {
+    fs.unlink(__dirname +'/../public/uploads/' + bouquet.images[i]);
+  }
   fs.unlink(__dirname +'/../public/uploads/' + bouquet.icon);
 });

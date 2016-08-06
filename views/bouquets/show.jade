@@ -44,6 +44,7 @@ block content
           img(src='/uploads/#{bouquet.icon}')
 
       .form-group
-        strong Изображение:
-        p
-          img(src='/uploads/#{bouquet.image}')
+        strong Изображения:
+        for image in bouquet.images
+          p
+            img(src= "/uploads/#{image}")

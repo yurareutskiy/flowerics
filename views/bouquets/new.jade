@@ -19,11 +19,11 @@ block content
 
         .form-group
           label Описание для каталога
-          input.form-control(type='text', placeholder='Описание', name='description')
+          textarea.form-control(placeholder='Описание', name='description')
 
         .form-group
           label Описание для флориста
-          input.form-control(type='text', placeholder='Описание', name='prescription')
+          textarea.form-control(placeholder='Описание', name='prescription')
 
         .form-group
           label Цвет
@@ -45,7 +45,7 @@ block content
 
         .form-group
           label Фотография
-          input(type='file', name='image')
+          input(type='file', name='image' multiple)
 
         .form-group
           label Иконка цвета

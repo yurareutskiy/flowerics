@@ -4,8 +4,7 @@ var router = require('express').Router(),
     Mood = require('../../models/mood'),
     async = require('async'),
     multer  = require('multer'),
-    mime  = require('mime'),
-    qs = require('qs');
+    mime  = require('mime');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -18,7 +17,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).fields(
               [
-                { name: 'image', maxCount: 1 },
+                { name: 'image', maxCount: 3 },
                 { name: 'icon', maxCount: 1 }
               ]
             );
@@ -40,12 +39,18 @@ router.route('/')
       description: req.body.description,
       prescription: req.body.prescription,
       price: req.body.price,
-      image: req.files['image'][0].filename,
       icon: req.files['icon'][0].filename,
       color: req.body.color
     });
-    bouquet.flowers.push({ name : req.body.flowers });
-    bouquet.moods.push({ name : req.body.moods });
+    for(i = 0; i < req.files['image'].length; i++) {
+      bouquet.images.push( req.files['image'][i].filename );
+    }
+    for(i = 0; i < req.body.flowers.length; i++) {
+      bouquet.flowers.push({ name : req.body.flowers[i] });
+    }
+    for(i = 0; i < req.body.moods.length; i++) {
+      bouquet.moods.push({ name : req.body.moods[i] });
+    }
     bouquet.save(function(err, bouquet) {
       if (err) {
         res.send(err);
@@ -111,11 +116,13 @@ router.route('/:id/edit')
   .put(function (req, res, next) {
     var id = req.params.id;
     var bouquet = req.body;
+    bouquet.image = req.files['image'][0].filename;
+    bouquet.icon = req.files['icon'][0].filename;
     Bouquet.updateBouquet(id, bouquet, {}, function(err, bouquet) {
       if (err) {
         res.send(err);
       }
-      res.redirect('/admin/bouquets/' + bouquet._id);
+      res.redirect('/admin/bouquets/');
     });
   });
 

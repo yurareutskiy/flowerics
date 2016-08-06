@@ -10,7 +10,6 @@ const join = require('path').join;
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const config = require('./config');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
