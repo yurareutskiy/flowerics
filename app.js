@@ -51,6 +51,9 @@ app.use(flash());
 // main routes
 app.use('/api', require('./routes/api'));
 app.use('/admin', require('./routes/admin'));
+app.get('/', function (req, res) {
+  res.redirect('/admin/dashboard');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
