@@ -8236,3 +8236,6 @@ body.md-skin {
 .padding-card {
   padding-right: 3.5em;
 }
+.image-thumb {
+  height: 320px;
+}

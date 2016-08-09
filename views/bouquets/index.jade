@@ -5,9 +5,9 @@ block content
     h1 Букеты
 
     for bouquet in bouquets
-      .col-lg-3.padding-card
+      .col-lg-4.padding-card
         .ibox.float-e-margins
-          img(src= "/uploads/#{bouquet.images['0']}")
+          img(src= "/uploads/#{bouquet.images['0']}" class='image-thumb')
           .ibox-title
             a(href='bouquets/#{bouquet._id}')
               h5= bouquet.name
