@@ -42,15 +42,29 @@ router.route('/')
       icon: req.files['icon'][0].filename,
       color: req.body.color
     });
+
     for(i = 0; i < req.files['image'].length; i++) {
       bouquet.images.push( req.files['image'][i].filename );
     }
-    for(i = 0; i < req.body.flowers.length; i++) {
-      bouquet.flowers.push({ name : req.body.flowers[i] });
+
+    if (typeof(req.body.flowers) == 'string') {
+      bouquet.flowers.push({ name : req.body.flowers });
     }
-    for(i = 0; i < req.body.moods.length; i++) {
+    else {
+      for(i = 0; i < req.body.flowers.length; i++) {
+        bouquet.flowers.push({ name : req.body.flowers[i] });
+      }
+    }
+
+    if (typeof(req.body.flowers) == 'string') {
       bouquet.moods.push({ name : req.body.moods[i] });
     }
+    else {
+      for(i = 0; i < req.body.moods.length; i++) {
+        bouquet.moods.push({ name : req.body.moods[i] });
+      }
+    }
+
     bouquet.save(function(err, bouquet) {
       if (err) {
         res.send(err);
