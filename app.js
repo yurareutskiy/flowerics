@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const join = require('path').join;
 const express = require('express');
-const mongoose = require('mongoose');
+const mysql = require('mysql');
 const passport = require('passport');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -16,7 +16,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const less = require('less-middleware');
-const MongoStore = require('connect-mongo')(session);
 const db = require('./config/db');
 
 const app = express();
@@ -39,10 +38,7 @@ app.use(session({
   secret: 'SECRET',
   resave: false,
   saveUninitialized: true,
-  maxAge: new Date(Date.now() + 3600000),
-  store: new MongoStore(
-    { mongooseConnection: mongoose.connection }
-  )
+  maxAge: new Date(Date.now() + 3600000)
 }));
 app.use(passport.initialize());
 app.use(passport.session());
