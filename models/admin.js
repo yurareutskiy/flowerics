@@ -1,15 +1,14 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
-
-var adminSchema = Schema({
-  login: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  }
-}, { timestamps: true });
-
-var Admin = module.exports = mongoose.model('Admin', adminSchema);
+'use strict';
+module.exports = function(sequelize, DataTypes) {
+  var Admin = sequelize.define('Admin', {
+    login: DataTypes.STRING,
+    password: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate: function(models) {
+        
+      }
+    }
+  });
+  return Admin;
+};

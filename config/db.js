@@ -1,10 +1,24 @@
-var mongoose = require('mongoose');
+var mysql = require('mysql');
 var env = process.env.NODE_ENV || 'development';
 var development = require('./env/development');
 var production = require('./env/production');
 
 if (env === 'production') {
-  mongoose.connect(production.db);
+  mysql.createConnection(production.db).connect(function(err) {
+    if (err) {
+      console.error('error connecting: ' + err.stack);
+      return;
+    }
+
+    console.log('connected as id ' + connection.threadId);
+  });
 } else {
-  mongoose.connect(development.db);
+  mysql.createConnection(development.db).connect(function(err) {
+    if (err) {
+      console.error('error connecting: ' + err.stack);
+      return;
+    }
+
+    console.log('connected as id ' + connection.threadId);
+  });
 }

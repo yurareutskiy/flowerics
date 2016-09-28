@@ -2,8 +2,7 @@ var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
     VKontakteStrategy = require('passport-vkontakte').Strategy,
-    Admin = require('../models/admin'),
-    User = require('../models/user'),
+    models = require('../models'),
     flash = require('connect-flash'),
     configAuth = require('./auth.js');
 
@@ -12,7 +11,7 @@ passport.serializeUser(function(admin, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  Admin.findById(id, function(err, admin){
+  models.Admin.findById(id, function(err, admin){
     done(err, admin);
   });
 });
@@ -23,8 +22,7 @@ passport.use('local', new LocalStrategy({
     passReqToCallback : true
   },
   function(req, login, password, done) {
-    Admin.findOne({ login: login }, function(err, admin) {
-      if (err) { return done(err); }
+    models.Admin.findOne({ where: { login: login }}).then(function(admin) {
       if (!admin) {
         return done(null, false, req.flash('message', 'Неправильный логин'));
       }
@@ -47,9 +45,7 @@ passport.use(new FacebookStrategy({
 function(token, refreshToken, profile, done) {
   process.nextTick(function() {
     // find the user in the database based on their facebook id
-    User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
-      if (err)
-        return done(err);
+    models.User.findOne({ where: { 'facebook.id' : profile.id }}).then(function(user) {
       // if the user is found, then log them in
       if (user) {
         return done(null, user);
@@ -83,7 +79,7 @@ passport.use(new VKontakteStrategy({
     callbackURL:  configAuth.vkontakteAuth.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ vkontakteId: profile.id }, function (err, user) {
+    models.User.findOrCreate({ where: { vkontakteId: profile.id }}).then(function (err, user) {
       return done(err, user);
     });
   }

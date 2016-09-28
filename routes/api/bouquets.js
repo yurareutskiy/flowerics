@@ -1,23 +1,21 @@
 var router = require('express').Router(),
-    Bouquet = require('../../models/bouquet');
+    models = require('../../models');
 
-router.route("/")
-  .get(function (req, res, next) {
-    Bouquet.getBouquets(function(err, bouquets) {
-      if (err) {
-       res.send(err);
-      }
+router.route('/')
+  .get(function(req, res) {
+    models.Bouquet.findAll({
+      include: [ models.Flower, models.Mood ]
+    }).then(function(bouquets) {
       res.json(bouquets);
     });
   });
 
+
+
 router.route('/:id')
-  .get(function (req, res, next) {
-    Bouquet.getBouquetById(req.params.id, function(err, bouquet) {
-      if (err) {
-        res.send(err);
-      }
-      res.json(bouquet);
+  .get(function(req, res) {
+    models.Bouquet.findById(req.params.id).then(function(bouquets) {
+      res.json(bouquets);
     });
   });
 

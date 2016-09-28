@@ -1,23 +1,17 @@
 var router = require('express').Router(),
-    Flower = require('../../models/flower');
+    models = require('../../models');
 
-router.route("/")
-  .get(function (req, res, next) {
-    Flower.getFlowers(function(err, flowers) {
-      if (err) {
-       res.send(err);
-      }
+router.route('/')
+  .get(function(req, res) {
+    models.Flower.findAll().then(function(flowers) {
       res.json(flowers);
     });
   });
 
 router.route('/:id')
-  .get(function (req, res, next) {
-    Flower.getFlowerById(req.params.id, function(err, flower) {
-      if (err) {
-        res.send(err);
-      }
-      res.json(flower);
+  .get(function(req, res) {
+    models.Flower.findById(req.params.id).then(function(flowers) {
+      res.json(flowers);
     });
   });
 

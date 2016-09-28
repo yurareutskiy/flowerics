@@ -1,23 +1,17 @@
 var router = require('express').Router(),
-    Promotion = require('../../models/promotion');
+    models = require('../../models');
 
-router.route("/")
-  .get(function (req, res, next) {
-    Promotion.getPromotions(function(err, promotions) {
-      if (err) {
-       res.send(err);
-      }
+router.route('/')
+  .get(function(req, res) {
+    models.Promotion.findAll().then(function(promotions) {
       res.json(promotions);
     });
   });
 
 router.route('/:id')
-  .get(function (req, res, next) {
-    Promotion.getPromotionById(req.params.id, function(err, promotion) {
-      if (err) {
-        res.send(err);
-      }
-      res.json(promotion);
+  .get(function(req, res) {
+    models.Promotion.findById(req.params.id).then(function(promotions) {
+      res.json(promotions);
     });
   });
 

@@ -1,23 +1,17 @@
 var router = require('express').Router(),
-    Mood = require('../../models/mood');
+    models = require('../../models');
 
-router.route("/")
-  .get(function (req, res, next) {
-    Mood.getMoods(function(err, moods) {
-      if (err) {
-       res.send(err);
-      }
+router.route('/')
+  .get(function(req, res) {
+    models.Mood.findAll().then(function(moods) {
       res.json(moods);
     });
   });
 
 router.route('/:id')
-  .get(function (req, res, next) {
-    Mood.getMoodById(req.params.id, function(err, mood) {
-      if (err) {
-        res.send(err);
-      }
-      res.json(mood);
+  .get(function(req, res) {
+    models.Mood.findById(req.params.id).then(function(moods) {
+      res.json(moods);
     });
   });
 

@@ -1,3 +1,3 @@
 module.exports = {
-  db: 'mongodb://localhost/flowerics_development'
+  db: 'mysql://localhost/flink_development'
 };
