@@ -1,6 +1,7 @@
+'use strict';
+
 const fs = require('fs');
 
-'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Bouquet = sequelize.define('Bouquet', {
     name: DataTypes.STRING,
@@ -21,7 +22,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     classMethods: {
       associate: function(models) {
-        Bouquet.belongsToMany(models.Flower, { through: Composition });
+        Bouquet.belongsToMany(models.Flower, { through: 'BouquetFlowers' });
+        Bouquet.belongsToMany(models.Mood, { through: 'BouquetMoods' });
       }
     }
   });

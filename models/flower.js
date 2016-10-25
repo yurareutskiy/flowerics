@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Flower.belongsToMany(models.Bouquet, { through: Composition });
+        Flower.belongsToMany(models.Bouquet, { through: 'BouquetFlowers' });
       }
     }
   });

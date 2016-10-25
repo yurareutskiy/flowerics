@@ -24,7 +24,13 @@ module.exports = {
         type: Sequelize.DATE
       },
       status: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM,
+        values: ['pending', 'delivered', 'canceled', 'ready']
+      },
+      userId: {
+        allowNull: false,
+        foreignKey: true,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

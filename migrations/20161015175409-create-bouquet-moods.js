@@ -1,15 +1,22 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('Moods', {
+    return queryInterface.createTable('BouquetMoods', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      bouquetId: {
+        allowNull: false,
+        foreignKey: true,
+        type: Sequelize.INTEGER
+      },
+      moodId: {
+        allowNull: false,
+        foreignKey: true,
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -22,6 +29,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Moods');
+    return queryInterface.dropTable('BouquetMoods');
   }
 };

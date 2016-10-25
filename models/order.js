@@ -10,6 +10,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.ENUM,
       values: ['pending', 'delivered', 'canceled', 'ready'],
       defaultValue: 'pending'
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'users',
+        key: 'id'
+      }
     }
   }, {
     classMethods: {
