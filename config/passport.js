@@ -11,8 +11,10 @@ passport.serializeUser(function(admin, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  models.Admin.findById(id, function(err, admin){
-    done(err, admin);
+  models.Admin.findById(id).then(function(admin) {
+    done(null, admin);
+  }).catch(function(err) {
+    done(err, false);
   });
 });
 

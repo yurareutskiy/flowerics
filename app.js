@@ -16,7 +16,8 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const less = require('less-middleware');
-const db = require('./config/config');
+const sequelize = require('sequelize');
+const db = require('./config/db');
 
 const app = express();
 

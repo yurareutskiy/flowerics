@@ -1,23 +1,16 @@
 {
   "development": {
     "username": "root",
-    "password": "a5d2m3i7n",
+    "password": null,
     "database": "flink_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "test": {
-    "username": "root",
-    "password": "a5d2m3i7n",
-    "database": "flink_test",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password": "a5d2m3i7n",
+    "password": null,
     "database": "flink_production",
-    "host": "127.0.0.1",
+    "host": "localhost",
     "dialect": "mysql"
   }
 }
