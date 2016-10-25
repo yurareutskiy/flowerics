@@ -3,7 +3,7 @@ extends ../layout
 block content
   section.content
     .box-body
-      form(action='/admin/flowers/#{flower._id}/edit', method='post', enctype='application/x-www-form-urlencoded')
+      form(action='/admin/flowers/#{flower.id}/edit', method='post', enctype='application/x-www-form-urlencoded')
 
         .form-group
           label Название

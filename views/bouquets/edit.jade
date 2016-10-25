@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  section.content
+  .container
     .box-body
       form(action='/admin/bouquets/#{bouquet._id}/edit', method='post', enctype='multipart/form-data')
 
@@ -27,6 +27,20 @@ block content
         .form-group
           label Цвет
           input.form-control(type='text', value='#{bouquet.color}', name='color')
+
+        .form-group
+          label.font-noraml Cостав
+          .input-group
+            select(data-placeholder='Выберите цветы' multiple style='width:500px;' tabindex='4' name='flowers').chosen-select
+              each flower in bouquet.flowers
+                option(value='#{flower.name}')= flower.name
+
+        .form-group
+          label.font-noraml Настроения
+          .input-group
+            select(data-placeholder='Выберите настроения' multiple style='width:500px;' tabindex='4' name='moods').chosen-select
+              each mood in bouquet.moods
+                option(value='#{mood.name}')= mood.name
 
         .form-group
           label Иконка цвета

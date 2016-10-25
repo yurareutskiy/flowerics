@@ -15,12 +15,12 @@ block content
           for mood in moods
             tr
               td
-                a(href='moods/#{mood._id}')
+                a(href='moods/#{mood.id}')
                   = mood.name
               td
-                a(href='moods/#{mood._id}/edit')
+                a(href='moods/#{mood.id}/edit')
                   button.btn.btn-warning Изменить
               td
-                form(action='/admin/moods/#{mood._id}', method='post', enctype='application/x-www-form-urlencoded')
+                form(action='/admin/moods/#{mood.id}', method='post', enctype='application/x-www-form-urlencoded')
                   input(type='hidden',value='DELETE',name='_method')
                   button.btn.btn-danger(type='submit') Удалить
