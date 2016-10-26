@@ -1,16 +1,7 @@
-var router = require('express').Router(),
-    Bouquet = require('../../models/bouquet');
+var router = require('express').Router();
 
-router.route('/')
-  .get(function (req, res) {
-    Bouquet.getBouquets(function(err, bouquets) {
-      if (err) {
-       res.send(err);
-      }
-      res.render('index', {
-        'bouquets' : bouquets
-      });
-    });
-  });
+router.get('/', function (req, res) {
+  res.render('index');
+});
 
 module.exports = router;

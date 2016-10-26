@@ -3,7 +3,7 @@ extends ../layout
 block content
   section.content
     .box-body
-      form(action='/admin/promotions/#{promotion._id}/edit', method='post', enctype='multipart/form-data')
+      form(action='/admin/promotions/#{promotion.id}/edit', method='post', enctype='multipart/form-data')
 
         .form-group
           label Название

@@ -1,26 +1,20 @@
 var router = require('express').Router(),
-    Order = require('../../models/order');
+    models = require('../../models/order');
 
 router.route('/')
   .get(function (req, res, next) {
-    Order.getOrders(function(err, orders) {
-      if (err) {
-       res.send(err);
-      }
+    models.Order.findAll().then(function(orders) {
       res.render('orders/index', {
-        'orders' : orders
+        orders: orders
       });
     });
-  });
+  })
 
 router.route('/:id')
   .get(function (req, res, next) {
-    Order.getOrderById(req.params.id, function(err, order) {
-      if (err) {
-        res.send(err);
-      }
+    models.Order.findById(req.params.id).then(function(order) {
       res.render('orders/show', {
-        'order' : order
+        order: order
       });
     });
   });

@@ -1,25 +1,21 @@
 var router = require('express').Router(),
-    Flower = require('../../models/flower');
+    models = require('../../models');
 
 router.route('/')
   .get(function (req, res, next) {
-    Flower.getFlowers(function(err, flowers) {
-      if (err) {
-       res.send(err);
-      }
+    models.Flower.findAll().then(function(flowers) {
       res.render('flowers/index', {
-        'flowers' : flowers
+        flowers: flowers
       });
     });
   })
   .post(function (req, res, next) {
     var flower = req.body;
-    Flower.createFlower(flower, function(err, flower) {
-      if (err) {
-        res.render('/', { error: res.locals.err });
-      }
+    models.Flower.create(flower).then(function(flower) {
       res.redirect('/admin/flowers');
-    });
+    }).catch(function(err) {
+      res.send(err);
+    })
   });
 
 router.get('/new', function(req, res) {
@@ -27,45 +23,38 @@ router.get('/new', function(req, res) {
 });
 
 router.route('/:id')
-  .get(function (req, res, next) {
-    Flower.getFlowerById(req.params.id, function(err, flower) {
-      if (err) {
-        res.send(err);
-      }
+  .get(function(req, res, next) {
+    models.Flower.findById(req.params.id).then(function(flower) {
       res.render('flowers/show', {
-        'flower' : flower
+        flower: flower
       });
     });
   })
-  .delete(function (req, res, next) {
+  .delete(function(req, res) {
     var id = req.params.id;
-    Flower.removeFlower(id, function(err, flower) {
-      if (err) {
-        res.send(err);
-      }
+    models.Flower.destroy({
+      where: { id: id }
+    }).then(function(flower) {
       res.redirect('/admin/flowers');
+    }).catch(function(err) {
+      res.send(err);
     });
   });
 
 router.route('/:id/edit')
   .get(function (req, res, next) {
-    Flower.getFlowerById(req.params.id, function(err, flower) {
-      if (err) {
-        res.send(err);
-      }
+    models.Flower.findById(req.params.id).then(function(flower) {
       res.render('flowers/edit', {
-        'flower' : flower
+        flower: flower
       });
     });
   })
   .put(function (req, res, next) {
     var id = req.params.id;
-    var flower = req.body;
-    Flower.updateFlower(id, flower, {}, function(err, flower) {
-      if (err) {
-        res.send(err);
-      }
-      res.redirect('/admin/flowers/' + flower._id);
+    models.Flower.findById(id).then(function(flower) {
+      flower.update(req.body).then(function() {
+        res.redirect('/admin/flowers/');
+      });
     });
   });
 

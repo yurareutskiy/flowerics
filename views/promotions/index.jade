@@ -17,15 +17,15 @@ block content
           for promotion in promotions
             tr
               td
-                a(href='promotions/#{promotion._id}')
+                a(href='promotions/#{promotion.id}')
                   = promotion.name
               td= promotion.description
               td
                 img(src= '/uploads/#{promotion.image}')
               td
-                a(href='promotions/#{promotion._id}/edit')
+                a(href='promotions/#{promotion.id}/edit')
                   button.btn.btn-warning Изменить
               td
-                form(action='/admin/promotions/#{promotion._id}', method='post', enctype='application/x-www-form-urlencoded')
+                form(action='/admin/promotions/#{promotion.id}', method='post', enctype='application/x-www-form-urlencoded')
                   input(type='hidden',value='DELETE',name='_method')
                   button.btn.btn-danger(type='submit') Удалить

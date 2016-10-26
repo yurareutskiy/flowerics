@@ -1,28 +1,20 @@
 var router = require('express').Router(),
-    User = require('../../models/user');
+    models = require('../../models');
 
-router.route('/')
-  .get(function (req, res, next) {
-    User.getUsers(function(err, users) {
-      if (err) {
-       res.send(err);
-      }
-      res.render('users/index', {
-        'users' : users
-      });
+router.get('/', function (req, res, next) {
+  models.User.findAll().then(function(users) {
+    res.render('users/index', {
+      users: users
     });
   });
+});
 
-router.route('/:id')
-  .get(function (req, res, next) {
-    User.getUserById(req.params.id, function(err, user) {
-      if (err) {
-        res.send(err);
-      }
-      res.render('users/show', {
-        'user' : user
-      });
+router.get('/:id', function (req, res, next) {
+  models.User.findById(req.params.id).then(function(user) {
+    res.render('users/show', {
+      user: user
     });
   });
+});
 
 module.exports = router;

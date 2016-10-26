@@ -1,5 +1,5 @@
 var router = require('express').Router(),
-    Promotion = require('../../models/promotion'),
+    models = require('../../models'),
     multer  = require('multer'),
     mime  = require('mime');
 
@@ -16,27 +16,19 @@ var upload = multer({ storage: storage });
 
 router.route('/')
   .get(function (req, res, next) {
-    Promotion.getPromotions(function(err, promotions) {
-      if (err) {
-       res.send(err);
-      }
+    models.Promotion.findAll().then(function(promotions) {
       res.render('promotions/index', {
-        'promotions' : promotions
+        promotions: promotions
       });
     });
   })
   .post(upload.single('image'), function (req, res, next) {
-    var promotion = new Promotion({
+    models.Promotion.create({
       name: req.body.name,
       description: req.body.description,
-      image: req.file.filename,
-    });
-    promotion.save(function(err, promotion) {
-      if (err) {
-        res.send(err);
-      }
-
-    res.redirect('/admin/promotions');
+      image: req.file.filename
+    }).then(function() {
+      res.redirect('/admin/promotions');
     });
   });
 
@@ -45,47 +37,38 @@ router.get('/new', function(req, res) {
 });
 
 router.route('/:id')
-  .get(function (req, res, next) {
-    Promotion.getPromotionById(req.params.id, function(err, promotion) {
-      if (err) {
-        res.send(err);
-      }
+  .get(function(req, res, next) {
+    models.Promotion.findById(req.params.id).then(function(promotion) {
       res.render('promotions/show', {
-        'promotion' : promotion
+        promotion: promotion
       });
     });
   })
-  .delete(function (req, res, next) {
+  .delete(function(req, res) {
     var id = req.params.id;
-    Promotion.findOne({_id: id}, function(err, promotion){
-      if (err) {
-        res.send(err);
-      }
-      promotion.remove(function(err){
-        res.redirect('/admin/promotions');
-      });
+    models.Promotion.destroy({
+      where: { id: id }
+    }).then(function(promotion) {
+      res.redirect('/admin/promotions');
+    }).catch(function(err) {
+      res.send(err);
     });
   });
 
 router.route('/:id/edit')
-  .get(function (req, res, next) {
-    Promotion.getPromotionById(req.params.id, function(err, promotion) {
-      if (err) {
-        res.send(err);
-      }
+  .get(function(req, res, next) {
+    models.Promotion.findById(req.params.id).then(function(promotion) {
       res.render('promotions/edit', {
-        'promotion' : promotion
+        promotion: promotion
       });
     });
   })
   .put(function (req, res, next) {
     var id = req.params.id;
-    var promotion = req.body;
-    Promotion.updatePromotion(id, promotion, {}, function(err, promotion) {
-      if (err) {
-        res.send(err);
-      }
-      res.redirect('/admin/promotions/' + promotion._id);
+    models.Promotion.findById(id).then(function(promotion) {
+      promotion.update(req.body).then(function() {
+        res.redirect('/admin/promotions/');
+      });
     });
   });
 

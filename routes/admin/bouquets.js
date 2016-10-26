@@ -1,8 +1,5 @@
 var router = require('express').Router(),
-    Bouquet = require('../../models/bouquet'),
-    Flower = require('../../models/flower'),
-    Mood = require('../../models/mood'),
-    async = require('async'),
+    models = require('../../models')
     multer  = require('multer'),
     mime  = require('mime');
 
@@ -16,127 +13,101 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage }).fields(
-              [
-                { name: 'image', maxCount: 3 },
-                { name: 'icon', maxCount: 1 }
-              ]
-            );
+  [
+    { name: 'image', maxCount: 3 },
+    { name: 'icon', maxCount: 1 }
+  ]
+);
 
 router.route('/')
   .get(function (req, res, next) {
-    Bouquet.getBouquets(function(err, bouquets) {
-      if (err) {
-       res.send(err);
-      }
+    models.Bouquet.findAll().then(function(bouquets) {
       res.render('bouquets/index', {
-        'bouquets' : bouquets
+        bouquets: bouquets
       });
     });
   })
   .post(upload, function (req, res, next) {
-    var bouquet = new Bouquet({
+    models.Bouquet.create({
       name: req.body.name,
       description: req.body.description,
       prescription: req.body.prescription,
       price: req.body.price,
       icon: req.files['icon'][0].filename,
       color: req.body.color
-    });
-
-    for(i = 0; i < req.files['image'].length; i++) {
-      bouquet.images.push( req.files['image'][i].filename );
-    }
-
-    if (typeof(req.body.flowers) == 'string') {
-      bouquet.flowers.push({ name : req.body.flowers });
-    }
-    else {
-      for(i = 0; i < req.body.flowers.length; i++) {
-        bouquet.flowers.push({ name : req.body.flowers[i] });
+    }).then(function(bouquet) {
+      for(i = 0; i < req.files['image'].length; i++) {
+        bouquet.image.push( req.files['image'][i].filename );
       }
-    }
 
-    if (typeof(req.body.flowers) == 'string') {
-      bouquet.moods.push({ name : req.body.moods[i] });
-    }
-    else {
-      for(i = 0; i < req.body.moods.length; i++) {
+      if (typeof(req.body.flowers) == 'string') {
+        bouquet.flowers.push({ name : req.body.flowers });
+      }
+      else {
+        for(i = 0; i < req.body.flowers.length; i++) {
+          bouquet.flowers.push({ name : req.body.flowers[i] });
+        }
+      }
+
+      if (typeof(req.body.flowers) == 'string') {
         bouquet.moods.push({ name : req.body.moods[i] });
       }
-    }
-
-    bouquet.save(function(err, bouquet) {
-      if (err) {
-        res.send(err);
+      else {
+        for(i = 0; i < req.body.moods.length; i++) {
+          bouquet.moods.push({ name : req.body.moods[i] });
+        }
       }
-
+    }).then(function() {
       res.redirect('/admin/bouquets');
     });
   });
 
-router.get('/new', function(req, res) {
-    var FlowerObj = Flower.find({});
-    var MoodObj = Mood.find({});
-    var resources = {
-      flowers: FlowerObj.exec.bind(FlowerObj),
-      moods: MoodObj.exec.bind(MoodObj)
-    };
-
-    async.parallel(resources, function (error, results){
-      if (error) {
-        res.status(500).send(error);
-        return;
-      }
+router.get('/new', function(req, res, next) {
+  models.Flower.findAll().then( function(flowers) {
+    models.Mood.findAll().then(function(moods) {
       res.render('bouquets/new', {
-        'results' : results
+          flowers: flowers,
+          moods: moods
       });
+    }).catch(function(err) {
+      res.send(err);
     });
+  });
 });
 
 router.route('/:id')
-  .get(function (req, res, next) {
-    Bouquet.getBouquetById(req.params.id, function(err, bouquet) {
-      if (err) {
-        res.send(err);
-      }
+  .get(function(req, res, next) {
+    models.Bouquet.findById(req.params.id).then(function(bouquet) {
       res.render('bouquets/show', {
-        'bouquet' : bouquet
+        bouquet: bouquet
       });
     });
   })
-  .delete(function (req, res, next) {
+  .delete(function(req, res) {
     var id = req.params.id;
-    Bouquet.findOne({_id: id}, function(err, bouquet){
-      if (err) {
-        res.send(err);
-      }
-      bouquet.remove(function(err){
-        res.redirect('/admin/bouquets');
-      });
+    models.Bouquet.destroy({
+      where: { id: id }
+    }).then(function(bouquet) {
+      res.redirect('/admin/bouquets');
+    }).catch(function(err) {
+      res.send(err);
     });
   });
 
 router.route('/:id/edit')
   .get(function (req, res, next) {
-    Bouquet.getBouquetById(req.params.id, function(err, bouquet) {
-      if (err) {
-        res.send(err);
-      }
+    models.Bouquet.findById(req.params.id).then(function(bouquet) {
       res.render('bouquets/edit', {
-        'bouquet' : bouquet
+        bouquet: bouquet
       });
     });
   })
   .put(function (req, res, next) {
     var id = req.params.id;
-    var bouquet = req.body;
-    bouquet.image = req.files['image'][0].filename;
-    bouquet.icon = req.files['icon'][0].filename;
-    Bouquet.updateBouquet(id, bouquet, {}, function(err, bouquet) {
-      if (err) {
-        res.send(err);
-      }
-      res.redirect('/admin/bouquets/');
+    models.Bouquet.findById(id).then(function(bouquet) {
+      bouquet.update(req.body).then(function() {
+        res.redirect('/admin/bouquets/');
+      });
     });
   });
 

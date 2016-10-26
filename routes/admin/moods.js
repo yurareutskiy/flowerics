@@ -1,25 +1,21 @@
 var router = require('express').Router(),
-    Mood = require('../../models/mood');
+    models = require('../../models');
 
 router.route('/')
   .get(function (req, res, next) {
-    Mood.getMoods(function(err, moods) {
-      if (err) {
-       res.send(err);
-      }
+    models.Mood.findAll().then(function(moods) {
       res.render('moods/index', {
-        'moods' : moods
+        moods: moods
       });
     });
   })
   .post(function (req, res, next) {
     var mood = req.body;
-    Mood.createMood(mood, function(err, mood) {
-      if (err) {
-        res.render('/', { error: res.locals.err });
-      }
+    models.Mood.create(mood).then(function(mood) {
       res.redirect('/admin/moods');
-    });
+    }).catch(function(err) {
+      res.send(err);
+    })
   });
 
 router.get('/new', function(req, res) {
@@ -27,45 +23,38 @@ router.get('/new', function(req, res) {
 });
 
 router.route('/:id')
-  .get(function (req, res, next) {
-    Mood.getMoodById(req.params.id, function(err, mood) {
-      if (err) {
-        res.send(err);
-      }
+  .get(function(req, res, next) {
+    models.Mood.findById(req.params.id).then(function(mood) {
       res.render('moods/show', {
-        'mood' : mood
+        mood: mood
       });
     });
   })
-  .delete(function (req, res, next) {
+  .delete(function(req, res) {
     var id = req.params.id;
-    Mood.removeMood(id, function(err, mood) {
-      if (err) {
-        res.send(err);
-      }
+    models.Mood.destroy({
+      where: { id: id }
+    }).then(function(mood) {
       res.redirect('/admin/moods');
+    }).catch(function(err) {
+      res.send(err);
     });
   });
 
 router.route('/:id/edit')
   .get(function (req, res, next) {
-    Mood.getMoodById(req.params.id, function(err, mood) {
-      if (err) {
-        res.send(err);
-      }
+    models.Mood.findById(req.params.id).then(function(mood) {
       res.render('moods/edit', {
-        'mood' : mood
+        mood: mood
       });
     });
   })
   .put(function (req, res, next) {
     var id = req.params.id;
-    var mood = req.body;
-    Mood.updateMood(id, mood, {}, function(err, mood) {
-      if (err) {
-        res.send(err);
-      }
-      res.redirect('/admin/moods/' + mood._id);
+    models.Mood.findById(id).then(function(mood) {
+      mood.update(req.body).then(function() {
+        res.redirect('/admin/moods/');
+      });
     });
   });
 
