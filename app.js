@@ -4,8 +4,6 @@
  * Module dependencies
  */
 
-require('dotenv').config();
-
 const join = require('path').join;
 const express = require('express');
 const mysql = require('mysql');
