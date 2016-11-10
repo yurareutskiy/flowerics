@@ -5,7 +5,7 @@ block content
     h1 Букет: #{bouquet.name}
     .box-body
       .form-group
-        a(href='#{bouquet._id}/edit')
+        a(href='#{bouquet.id}/edit')
           button.btn.btn-default Изменить
 
       .form-group
@@ -28,15 +28,15 @@ block content
         strong Цвет: 
         = bouquet.color
 
-      .form-group
-        strong Настроения: 
-        for mood in bouquet.moods
-          = mood.name
+      //- .form-group
+      //-   strong Настроения: 
+      //-   for mood in bouquet.moods
+      //-     = mood.name
 
-      .form-group
-        strong Цветы: 
-        for flower in bouquet.flowers
-          = flower.name
+      //- .form-group
+      //-   strong Цветы: 
+      //-   for flower in bouquet.flowers
+      //-     = flower.name
 
       .form-group
         strong Иконка цвета:
@@ -45,6 +45,6 @@ block content
 
       .form-group
         strong Изображения:
-        for image in bouquet.images
+        for image in JSON.parse(bouquet.image)
           p
             img(src= "/uploads/#{image}" class="image-thumb")

@@ -7,14 +7,14 @@ block content
     for bouquet in bouquets
       .col-lg-4.padding-card
         .ibox.float-e-margins
-          img(src= "/uploads/#{bouquet.images['0']}" class='image-thumb')
+          img(src= "/uploads/#{JSON.parse(bouquet.image)['0']}" class='image-thumb')
           .ibox-title
-            a(href='bouquets/#{bouquet._id}')
+            a(href='bouquets/#{bouquet.id}')
               h5= bouquet.name
             .ibox-tools
-              a(href='bouquets/#{bouquet._id}/edit')
+              a(href='bouquets/#{bouquet.id}/edit')
                 i.fa.fa-wrench
-              form(action='/admin/bouquets/#{bouquet._id}', method='post', enctype='application/x-www-form-urlencoded')
+              form(action='/admin/bouquets/#{bouquet.id}', method='post', enctype='application/x-www-form-urlencoded')
                 input(type='hidden',value='DELETE',name='_method')
                 button.delete-button(type='submit')
                   i.fa.fa-times
