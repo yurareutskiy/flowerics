@@ -2,9 +2,7 @@ var router = require('express').Router(),
     models = require('../../models');
 
 router.get('/', function(req, res) {
-  models.Bouquet.findAll({
-    include: [ models.Flower, models.Mood ]
-  }).then(function(bouquets) {
+  models.Bouquet.findAll().then(function(bouquets) {
     res.json(bouquets);
   });
 });

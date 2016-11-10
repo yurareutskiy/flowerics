@@ -36,27 +36,43 @@ router.route('/')
       icon: req.files['icon'][0].filename,
       color: req.body.color
     }).then(function(bouquet) {
+      var images = [];
+
       for(i = 0; i < req.files['image'].length; i++) {
-        bouquet.image.push( req.files['image'][i].filename );
+        images.push( req.files['image'][i].filename );
       }
 
-      if (typeof(req.body.flowers) == 'string') {
-        bouquet.flowers.push({ name : req.body.flowers });
-      }
-      else {
-        for(i = 0; i < req.body.flowers.length; i++) {
-          bouquet.flowers.push({ name : req.body.flowers[i] });
-        }
-      }
+      bouquet.image = JSON.stringify(images);
+      bouquet.save()
+      // bouquet.setFlowers([]).then(function(flowers) {
+      //   if (typeof(req.body.flowers) == 'string') {
+      //     flowers.push({ name : req.body.flowers });
+      //   }
+      //   else {
+      //     for(i = 0; i < req.body.flowers.length; i++) {
+      //       flowers.push({ name : req.body.flowers[i] });
+      //     }
+      //   }
+      // })
 
-      if (typeof(req.body.flowers) == 'string') {
-        bouquet.moods.push({ name : req.body.moods[i] });
-      }
-      else {
-        for(i = 0; i < req.body.moods.length; i++) {
-          bouquet.moods.push({ name : req.body.moods[i] });
-        }
-      }
+
+      // if (typeof(req.body.flowers) == 'string') {
+      //   bouquet.flowers.push({ name : req.body.flowers });
+      // }
+      // else {
+      //   for(i = 0; i < req.body.flowers.length; i++) {
+      //     bouquet.flowers.push({ name : req.body.flowers[i] });
+      //   }
+      // }
+
+      // if (typeof(req.body.flowers) == 'string') {
+      //   bouquet.moods.push({ name : req.body.moods[i] });
+      // }
+      // else {
+      //   for(i = 0; i < req.body.moods.length; i++) {
+      //     bouquet.moods.push({ name : req.body.moods[i] });
+      //   }
+      // }
     }).then(function() {
       res.redirect('/admin/bouquets');
     });
