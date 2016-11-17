@@ -1,9 +1,13 @@
 'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   var Order = sequelize.define('Order', {
-    paid: DataTypes.BOOLEAN,
+    paid: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     address: DataTypes.STRING,
-    phone_number: DataTypes.INTEGER,
+    phone_number: DataTypes.STRING,
     comment: DataTypes.STRING,
     date: DataTypes.DATE,
     status: {
@@ -11,17 +15,20 @@ module.exports = function(sequelize, DataTypes) {
       values: ['pending', 'delivered', 'canceled', 'ready'],
       defaultValue: 'pending'
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'users',
-        key: 'id'
-      }
+    delivery_type: {
+      type: DataTypes.ENUM,
+      values: ['delivery', 'ex_works']
     }
   }, {
     classMethods: {
       associate: function(models) {
         Order.belongsTo(models.User, {
+          onDelete: "CASCADE",
+          foreignKey: {
+            allowNull: false
+          }
+        });
+        Order.belongsTo(models.Bouquet, {
           onDelete: "CASCADE",
           foreignKey: {
             allowNull: false

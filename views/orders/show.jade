@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  section.content
+    h1 Заказ №: #{order.id}
+    .box-body
+      .form-group
+        a(href='#{order.id}/edit')
+          button.btn.btn-default Изменить
+
+      .form-group
+        strong Тип доставки: 
+        = order.delivery_type
+
+      .form-group
+        strong Имя получателя: 
+        = order.User.first_name
+
+      .form-group
+        strong Дата заказа: 
+        = order.createdAt
+
+      .form-group
+        strong Статус: 
+        = order.status

@@ -1,0 +1,40 @@
+extends ../layout
+
+block content
+  .container
+    h1 Заказы
+
+    .table-responsive
+      table.table
+        thead
+          tr
+            th № заказа
+            th Тип доставки
+            th Имя получателя
+            th Дата заказа
+            th Статус
+            th Управление
+            th &nbsp;
+        tbody
+          for order in orders
+            tr
+              td
+                a(href='orders/#{order.id}')
+                  = order.id
+              td= order.delivery_type
+              td= order.User.first_name
+              td= order.createdAt
+              td
+                if order.status == 'delivered'
+                  span.label.label-primary
+                    = order.status
+                else
+                  span.label.label-warning
+                    = order.status
+              td
+                a(href='orders/#{order.id}/edit')
+                  button.btn.btn-default Изменить
+              td
+                form(action='/admin/orders/#{order.id}', method='post', enctype='application/x-www-form-urlencoded')
+                  input(type='hidden',value='DELETE',name='_method')
+                  button.btn.btn-danger(type='submit') Удалить
