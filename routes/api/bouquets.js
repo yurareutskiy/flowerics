@@ -2,7 +2,12 @@ var router = require('express').Router(),
     models = require('../../models');
 
 router.get('/', function(req, res) {
-  models.Bouquet.findAll().then(function(bouquets) {
+  models.Bouquet.findAll({
+    attributes: [
+      'id', 'name', 'price', 'description', 'color',
+      'image', 'icon', 'createdAt', 'updatedAt'
+    ]
+  }).then(function(bouquets) {
     res.json(bouquets);
   });
 });
