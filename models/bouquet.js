@@ -24,6 +24,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         Bouquet.belongsToMany(models.Flower, { through: 'BouquetFlowers' });
         Bouquet.belongsToMany(models.Mood, { through: 'BouquetMoods' });
+        Bouquet.hasMany(models.Order);
       }
     }
   });
