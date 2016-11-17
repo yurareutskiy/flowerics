@@ -20,6 +20,15 @@ module.exports = {
       phone_number: {
         type: Sequelize.INTEGER
       },
+      photo: {
+        type: Sequelize.STRING
+      },
+      card_number: {
+        type: Sequelize.INTEGER
+      },
+      social_network_link: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

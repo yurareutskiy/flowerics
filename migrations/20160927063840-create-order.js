@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       phone_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       comment: {
         type: Sequelize.STRING
@@ -27,7 +27,16 @@ module.exports = {
         type: Sequelize.ENUM,
         values: ['pending', 'delivered', 'canceled', 'ready']
       },
+      delivery_type: {
+        type: Sequelize.ENUM,
+        values: ['delivery', 'ex_works']
+      },
       userId: {
+        allowNull: false,
+        foreignKey: true,
+        type: Sequelize.INTEGER
+      },
+      bouquetId: {
         allowNull: false,
         foreignKey: true,
         type: Sequelize.INTEGER
