@@ -3,7 +3,7 @@ var router = require('express').Router(),
     User = require('../../models/user');
 
 router.get('/auth/facebook',
-  passport.authenticate('facebook', { authType: 'rerequest', scope: ['user_friends'] }),
+  passport.authenticate('facebook', { scope: ['user_friends'] }),
   function(req, res){
     // The request will be redirected to vk.com for authentication, with
     // extended permissions.
@@ -18,7 +18,7 @@ router.get('/auth/facebook/callback',
   });
 
 router.get('/auth/vkontakte',
-  passport.authenticate('vkontakte', { scope: ['friends'] }),
+  passport.authenticate('vkontakte', { scope: ['email', 'friends'] }),
   function(req, res){
     // The request will be redirected to vk.com for authentication, with
     // extended permissions.
