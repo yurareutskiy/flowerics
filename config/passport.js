@@ -1,7 +1,7 @@
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
-    FacebookStrategy = require('passport-facebook').Strategy,
-    VKontakteStrategy = require('passport-vkontakte').Strategy,
+    FacebookTokenStrategy = require('passport-facebook-token'),
+    VKontakteTokenStrategy = require('passport-vkontakte-token'),
     models = require('../models'),
     flash = require('connect-flash'),
     configAuth = require('./auth.js');
@@ -37,10 +37,9 @@ passport.use('local', new LocalStrategy({
 ));
 
 // FACEBOOK
-passport.use(new FacebookStrategy({
+passport.use(new FacebookTokenStrategy({
     clientID:     process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL:  "http://localhost:8080/auth/facebook/callback",
     profileFields: ['id', 'name', 'email', 'picture', 'friends']
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -53,16 +52,15 @@ passport.use(new FacebookStrategy({
 ));
 
 // VKONTAKTE
-passport.use(new VKontakteStrategy({
+passport.use(new VKontakteTokenStrategy({
     clientID:     process.env.VKONTAKTE_APP_ID,
     clientSecret: process.env.VKONTAKTE_APP_SECRET,
-    callbackURL:  "http://localhost:8080/auth/vkontakte/callback",
     scope: ['email'],
     profileFields: ['id', 'name', 'email', 'contacts', 'photo_50', 'friends']
   },
   function(accessToken, refreshToken, profile, done) {
     models.User.findOrCreate({
-      where: { vkontakteId: profile.id }
+      where: { 'vkontakte.id': profile.id }
     }).then(function (err, user) {
       return done(err, user);
     });
