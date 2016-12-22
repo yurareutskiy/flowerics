@@ -46,7 +46,7 @@ app.use(flash());
 // main routes
 app.use('/api', require('./routes/api'));
 app.use('/admin', require('./routes/admin'));
-app.get('/', function (req, res) {
+app.get('/admin', function (req, res) {
   res.redirect('/admin/dashboard');
 });
 
