@@ -46,9 +46,9 @@ router.route('/:id')
   })
   .delete(function(req, res) {
     var id = req.params.id;
-    models.Promotion.destroy({
-      where: { id: id }
-    }).then(function(promotion) {
+    models.Promotion.findById(id).then(function(promotion) {
+      promotion.destroy();
+    }).then(function() {
       res.redirect('/admin/promotions');
     }).catch(function(err) {
       res.send(err);

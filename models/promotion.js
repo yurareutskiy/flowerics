@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     hooks: {
       beforeDestroy: function(promotion) {
-        fs.unlink(__dirname +'/../public/uploads/' + promotion.image);
+        fs.unlinkSync(__dirname +'/../public/uploads/' + promotion.image);
       }
     },
     classMethods: {

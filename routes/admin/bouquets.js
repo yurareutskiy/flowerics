@@ -75,6 +75,8 @@ router.route('/')
       // }
     }).then(function() {
       res.redirect('/admin/bouquets');
+    }).catch(function(err) {
+      res.send(err);
     });
   });
 
@@ -93,7 +95,8 @@ router.get('/new', function(req, res, next) {
 
 router.route('/:id')
   .get(function(req, res, next) {
-    models.Bouquet.findById(req.params.id).then(function(bouquet) {
+    var id = req.params.id
+    models.Bouquet.findById(id).then(function(bouquet) {
       res.render('bouquets/show', {
         bouquet: bouquet
       });
@@ -101,9 +104,9 @@ router.route('/:id')
   })
   .delete(function(req, res) {
     var id = req.params.id;
-    models.Bouquet.destroy({
-      where: { id: id }
-    }).then(function(bouquet) {
+    models.Bouquet.findById(id).then(function(bouquet) {
+      bouquet.destroy();
+    }).then(function() {
       res.redirect('/admin/bouquets');
     }).catch(function(err) {
       res.send(err);

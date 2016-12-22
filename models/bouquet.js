@@ -13,11 +13,12 @@ module.exports = function(sequelize, DataTypes) {
     image: DataTypes.STRING
   }, {
     hooks: {
-      beforeDestroy: function(bouquet) {
-        for(i = 0; i < bouquet.images.length; i++) {
-          fs.unlink(__dirname +'/../public/uploads/' + bouquet.images[i]);
+      beforeDestroy: function(bouquet, options) {
+        var images = JSON.parse(bouquet.image);
+        for(var i = 0; i < images.length; i++) {
+          fs.unlinkSync(__dirname + '/../public/uploads/' + images[i]);
         }
-        fs.unlink(__dirname +'/../public/uploads/' + bouquet.icon);
+        fs.unlinkSync(__dirname + '/../public/uploads/' + bouquet.icon);
       }
     },
     classMethods: {
