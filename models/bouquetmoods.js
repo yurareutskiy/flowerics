@@ -1,14 +1,14 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var BouquetMoods = sequelize.define('BouquetMoods', {
-    bouquetId: {
+    BouquetId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'bouquets',
         key: 'id'
       }
     },
-    moodId: {
+    MoodId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'moods',

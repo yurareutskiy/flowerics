@@ -8,12 +8,12 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      bouquetId: {
+      BouquetId: {
         allowNull: false,
         foreignKey: true,
         type: Sequelize.INTEGER
       },
-      moodId: {
+      MoodId: {
         allowNull: false,
         foreignKey: true,
         type: Sequelize.INTEGER

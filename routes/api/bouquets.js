@@ -13,7 +13,12 @@ router.get('/', function(req, res) {
 });
 
 router.get('/:id', function(req, res) {
-  models.Bouquet.findById(req.params.id).then(function(bouquets) {
+  var id = req.params.id;
+  models.Bouquet.find(
+    {
+      where: { id: id },
+      include: [models.Flower, models.Mood]
+    }).then(function(bouquets) {
     res.json(bouquets);
   });
 });
