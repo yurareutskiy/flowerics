@@ -4,7 +4,8 @@ var router = require('express').Router(),
 router.route('/')
   .get(function(req, res, next) {
     models.Order.findAll({
-      include: [ models.User, models.Bouquet ]
+      where: { userId: req.user.id },
+      include: [ models.Bouquet ]
     }).then(function(orders) {
       res.json(orders);
     }).catch(function(err) {
