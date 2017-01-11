@@ -67,7 +67,7 @@ router.route('/:id/edit')
     var id = req.params.id;
     models.Promotion.findById(id).then(function(promotion) {
       promotion.update(req.body).then(function() {
-        res.redirect('/admin/promotions/');
+        res.redirect('/admin/promotions');
       });
     });
   });

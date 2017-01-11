@@ -33,7 +33,7 @@ router.route('/:id/edit')
     var id = req.params.id;
     models.Order.findById(id).then(function(order) {
       order.update(req.body).then(function() {
-        res.redirect('/admin/orders/');
+        res.redirect('/admin/orders');
       });
     });
   });

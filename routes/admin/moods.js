@@ -53,7 +53,7 @@ router.route('/:id/edit')
     var id = req.params.id;
     models.Mood.findById(id).then(function(mood) {
       mood.update(req.body).then(function() {
-        res.redirect('/admin/moods/');
+        res.redirect('/admin/moods');
       });
     });
   });

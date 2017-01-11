@@ -109,7 +109,7 @@ router.route('/:id/edit')
     var id = req.params.id;
     models.Bouquet.findById(id).then(function(bouquet) {
       bouquet.update(req.body).then(function() {
-        res.redirect('/admin/bouquets/');
+        res.redirect('/admin/bouquets');
       });
     });
   });

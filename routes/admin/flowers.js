@@ -53,7 +53,7 @@ router.route('/:id/edit')
     var id = req.params.id;
     models.Flower.findById(id).then(function(flower) {
       flower.update(req.body).then(function() {
-        res.redirect('/admin/flowers/');
+        res.redirect('/admin/flowers');
       });
     });
   });
