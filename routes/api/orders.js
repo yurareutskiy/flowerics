@@ -5,7 +5,8 @@ router.route('/')
   .get(function(req, res, next) {
     models.Order.findAll({
       where: { userId: req.user.id },
-      include: [ models.Bouquet ]
+      include: [ models.Bouquet ],
+      order: 'createdAt DESC'
     }).then(function(orders) {
       res.json(orders);
     }).catch(function(err) {
