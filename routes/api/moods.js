@@ -1,5 +1,5 @@
 var router = require('express').Router(),
-    models = require('../../models/index');
+    models = require('models/index');
 
 router.get('/', function(req, res) {
   models.Mood.findAll().then(function(moods) {

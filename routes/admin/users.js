@@ -1,5 +1,5 @@
 var router = require('express').Router(),
-    models = require('../../models');
+    models = require('models');
 
 router.get('/', function (req, res, next) {
   models.User.findAll().then(function(users) {

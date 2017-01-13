@@ -1,11 +1,11 @@
 var router = require('express').Router(),
-    models = require('../../models')
+    models = require('models'),
     multer  = require('multer'),
     mime  = require('mime');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, __dirname + '/../../public/uploads/')
+    cb(null, process.cwd() + '/public/uploads/')
   },
   filename: function (req, file, cb) {
     cb(null, file.fieldname + '-' + Date.now() + '.' + mime.extension(file.mimetype));

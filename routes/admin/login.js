@@ -1,5 +1,5 @@
 var router = require('express').Router(),
-    Admin = require('../../models/admin'),
+    Admin = require('models/admin'),
     passport = require('passport');
 
 router.route('/')

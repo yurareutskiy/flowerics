@@ -1,6 +1,6 @@
 var router = require('express').Router(),
     passport = require('passport'),
-    User = require('../../models/user');
+    User = require('models/user');
 
 router.post('/auth/facebook',
   passport.authenticate('facebook-token'), function(req, res) {

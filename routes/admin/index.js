@@ -1,7 +1,7 @@
 var router = require('express').Router(),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
-    passport = require('../../config/passport');
+    passport = require('config/passport');
 
 router.use(bodyParser.urlencoded({ extended: true, keepExtensions: true }));
 router.use(methodOverride(function(req, res) {
