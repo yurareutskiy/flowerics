@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  .container
+    h1 Пользователи
+
+    .table-responsive
+      table.table
+        thead
+          tr
+            th ФИО
+            th Почта
+            th Телефон
+            th &nbsp;
+        tbody
+          for user in users
+            tr
+              td
+                a(href='users/#{user.id}')
+                  = user.fullName()
+              td= user.email
+              td= user.phone_number
