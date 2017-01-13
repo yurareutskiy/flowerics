@@ -13,7 +13,13 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         User.hasMany(models.Order)
       }
+    },
+    instanceMethods: {
+      fullName: function() {
+        return [this.first_name, this.last_name].join(' ');
+      }
     }
   });
+
   return User;
 };
