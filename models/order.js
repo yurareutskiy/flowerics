@@ -9,11 +9,19 @@ module.exports = function(sequelize, DataTypes) {
     address: DataTypes.STRING,
     phone_number: DataTypes.STRING,
     comment: DataTypes.STRING,
-    date: DataTypes.DATE,
+    date: {
+      type: DataTypes.DATE,
+      validate: {
+        isAfter: new Date().toISOString()
+      }
+    },
     status: {
       type: DataTypes.ENUM,
       values: ['pending', 'delivered', 'canceled', 'ready'],
-      defaultValue: 'pending'
+      defaultValue: 'pending',
+      validate: {
+        isIn: [['pending', 'delivered', 'canceled', 'ready']]
+      }
     },
     delivery_type: {
       type: DataTypes.ENUM,

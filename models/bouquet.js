@@ -9,7 +9,13 @@ module.exports = function(sequelize, DataTypes) {
     prescription: DataTypes.STRING,
     icon: DataTypes.STRING,
     color: DataTypes.STRING,
-    price: DataTypes.INTEGER,
+    price: {
+      type: DataTypes.INTEGER,
+      validate: {
+        isInt: true,
+        min: 0
+      }
+    },
     image: DataTypes.STRING
   }, {
     hooks: {
