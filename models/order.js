@@ -9,6 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     address: DataTypes.STRING,
     phone_number: DataTypes.STRING,
     comment: DataTypes.STRING,
+    promocode: DataTypes.STRING,
     date: {
       type: DataTypes.DATE,
       validate: {

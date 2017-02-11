@@ -23,6 +23,9 @@ module.exports = {
       date: {
         type: Sequelize.DATE
       },
+      promocode: {
+        type: Sequelize.STRING
+      },
       status: {
         type: Sequelize.ENUM,
         values: ['pending', 'delivered', 'canceled', 'ready']
