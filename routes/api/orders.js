@@ -16,7 +16,7 @@ router.route('/')
   .post(function (req, res, next) {
     var order = req.body;
     models.Order.create(order).then(function(order) {
-      res.status(201).json(order);
+      res.status(201).json(order.id);
     }).catch(function(err) {
       res.status(422).send(err);
     })
